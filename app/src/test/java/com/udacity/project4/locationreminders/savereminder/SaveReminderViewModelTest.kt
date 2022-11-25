@@ -4,12 +4,17 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.udacity.project4.locationreminders.data.FakeDataSource
+import com.udacity.project4.locationreminders.getOrAwaitValue
+import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.locationreminders.rule.MainCoroutineRule
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
 
@@ -44,6 +49,25 @@ class SaveReminderViewModelTest {
         )
         //reset fakeDataBase
         runBlocking { fakeRepo.deleteAllReminders() }
+    }
+
+    private fun getInvalidReminder(): ReminderDataItem {
+        return ReminderDataItem(
+            title = "",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+    }
+
+    @Test
+    fun shouldReturnError() {
+        saveReminderViewModel.validateAndSaveReminder(getInvalidReminder())
+        MatcherAssert.assertThat(
+            saveReminderViewModel.showSnackBarInt.getOrAwaitValue(),
+            CoreMatchers.notNullValue()
+        )
     }
 
 }
