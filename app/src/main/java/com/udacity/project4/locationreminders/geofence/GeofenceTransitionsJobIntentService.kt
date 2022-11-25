@@ -27,12 +27,10 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
         private const val JOB_ID = 573
         private const val TAG = "Geofence"
 
-        //        TODO: call this to start the JobIntentService to handle the geofencing transition events
+        //call this to start the JobIntentService to handle the geofencing transition events
         fun enqueueWork(context: Context, intent: Intent) {
             enqueueWork(
-                context,
-                GeofenceTransitionsJobIntentService::class.java, JOB_ID,
-                intent
+                context, GeofenceTransitionsJobIntentService::class.java, JOB_ID, intent
             )
         }
     }
@@ -89,5 +87,4 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
             }
         }
     }
-
 }
