@@ -1,0 +1,2379 @@
+Index: app/src/main/res/layout/activity_reminder_description.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_reminder_description.xml b/app/src/main/res/layout/activity_reminder_description.xml
+--- a/app/src/main/res/layout/activity_reminder_description.xml	
++++ b/app/src/main/res/layout/activity_reminder_description.xml	(date 1669121918943)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <layout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools">
+ 
+     <data>
+@@ -15,34 +16,18 @@
+         android:gravity="center"
+         android:orientation="vertical"
+         tools:context=".locationreminders.ReminderDescriptionActivity">
+-        <!--add the design of the reminder details-->
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:gravity="center"
+-            android:text="@string/reminder_details"
+-            android:textSize="@dimen/text_size_large" />
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:gravity="center"
+-            android:text="@string/iam_at"
+-            android:textSize="@dimen/text_size_large" />
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:gravity="center"
+-            android:text="@{reminderDataItem.title}"
+-            android:textSize="@dimen/text_size_large" />
++        <!--TODO: add the design of the reminder details-->
+ 
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+-            android:text="@{reminderDataItem.description}"
+-            android:textSize="@dimen/text_size_large" />
++            android:text="Reminder Details"
++            android:textSize="@dimen/text_size_large"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
+     </LinearLayout>
+ </layout>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	(date 1669121918941)
+@@ -33,7 +33,6 @@
+     <string name="welcome">Welcome</string>
+     <string name="err_enter_title">Please enter title</string>
+     <string name="err_select_location">Please select location</string>
+-    <string name="signout_failed">Signout Failed</string>
+ 
+     <!-- Error strings -->
+     <string name="geofence_unknown_error">Unknown error: the Geofence service is not available now.</string>
+@@ -42,6 +41,4 @@
+     <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
+     <string name="error_adding_geofence">Error Happened, Can\'t Add Geofence</string>
+     <string name="map_image">Map Image</string>
+-    <string name="reminder_details">Reminder Details</string>
+-    <string name="iam_at">I`am at </string>
+ </resources>
+Index: app/src/main/res/values/google_maps_api.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/google_maps_api.xml b/app/src/main/res/values/google_maps_api.xml
+--- a/app/src/main/res/values/google_maps_api.xml	
++++ b/app/src/main/res/values/google_maps_api.xml	(date 1669121918937)
+@@ -1,4 +1,4 @@
+ <resources>
+ <!--    TODO: Before you run your application, you need a Google Maps API key.-->
+-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCmFmdEX0d_-_ecEhZX_GJARLyl9INYFIs</string>
++    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
+ </resources>
+Index: app/src/main/res/raw/map_style.xml
+===================================================================
+diff --git a/app/src/main/res/raw/map_style.xml b/app/src/main/res/raw/map_style.xml
+deleted file mode 100644
+--- a/app/src/main/res/raw/map_style.xml	
++++ /dev/null	
+@@ -1,1 +0,0 @@
+-[{"elementType": "geometry","stylers": [{"color": "#1d2c4d"}]},{"elementType": "labels.text.fill","stylers": [{"color": "#8ec3b9"}]},{"elementType": "labels.text.stroke","stylers": [{"color": "#1a3646"}]},{"featureType": "administrative.country","elementType": "geometry.stroke","stylers": [{"color": "#4b6878"}]},{"featureType": "administrative.land_parcel","elementType": "labels.text.fill","stylers": [{"color": "#64779e"}]},{"featureType": "administrative.province","elementType": "geometry.stroke","stylers": [{"color": "#4b6878"}]},{"featureType": "landscape.man_made","elementType": "geometry.stroke","stylers": [{"color": "#334e87"}]},{"featureType": "landscape.natural","elementType": "geometry","stylers": [{"color": "#023e58"}]},{"featureType": "poi","elementType": "geometry","stylers": [{"color": "#283d6a"}]},{"featureType": "poi","elementType": "labels.text.fill","stylers": [{"color": "#6f9ba5"}]},{"featureType": "poi","elementType": "labels.text.stroke","stylers": [{"color": "#1d2c4d"}]},{"featureType": "poi.park","elementType": "geometry.fill","stylers": [{"color": "#023e58"}]},{"featureType": "poi.park","elementType": "labels.text.fill","stylers": [{"color": "#3C7680"}]},{"featureType": "road","elementType": "geometry","stylers": [{"color": "#304a7d"}]},{"featureType": "road","elementType": "labels.text.fill","stylers": [{"color": "#98a5be"}]},{"featureType": "road","elementType": "labels.text.stroke","stylers": [{"color": "#1d2c4d"}]},{"featureType": "road.highway","elementType": "geometry","stylers": [{"color": "#2c6675"}]},{"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"color": "#255763"}]},{"featureType": "road.highway","elementType": "labels.text.fill","stylers": [{"color": "#b0d5ce"}]},{"featureType": "road.highway","elementType": "labels.text.stroke","stylers": [{"color": "#023e58"}]},{"featureType": "transit","elementType": "labels.text.fill","stylers": [{"color": "#98a5be"}]},{"featureType": "transit","elementType": "labels.text.stroke","stylers": [{"color": "#1d2c4d"}]},{"featureType": "transit.line","elementType": "geometry.fill","stylers": [{"color": "#283d6a"}]},{"featureType": "transit.station","elementType": "geometry","stylers": [{"color": "#3a4762"}]},{"featureType": "water","elementType": "geometry","stylers": [{"color": "#0e1626"}]},{"featureType": "water","elementType": "labels.text.fill","stylers": [{"color": "#4e6d70"}]}]
+\ No newline at end of file
+Index: app/src/main/java/com/udacity/project4/utils/GeofenceUtils.kt
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/utils/GeofenceUtils.kt b/app/src/main/java/com/udacity/project4/utils/GeofenceUtils.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/udacity/project4/utils/GeofenceUtils.kt	
++++ /dev/null	
+@@ -1,45 +0,0 @@
+-/*
+- * Copyright (C) 2019 Google Inc.
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *     http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-package com.udacity.project4.utils
+-
+-import android.content.Context
+-import com.google.android.gms.location.GeofenceStatusCodes
+-import com.google.android.gms.maps.model.LatLng
+-import com.udacity.project4.R
+-import java.util.concurrent.TimeUnit
+-
+-/**
+- * Returns the error string for a geofencing error code.
+- */
+-fun errorMessage(context: Context, errorCode: Int): String {
+-    val resources = context.resources
+-    return when (errorCode) {
+-        GeofenceStatusCodes.GEOFENCE_NOT_AVAILABLE -> resources.getString(
+-            R.string.geofence_not_available
+-        )
+-        GeofenceStatusCodes.GEOFENCE_TOO_MANY_GEOFENCES -> resources.getString(
+-            R.string.geofence_too_many_geofences
+-        )
+-        GeofenceStatusCodes.GEOFENCE_TOO_MANY_PENDING_INTENTS -> resources.getString(
+-            R.string.geofence_too_many_pending_intents
+-        )
+-        else -> resources.getString(R.string.geofence_unknown_error)
+-    }
+-}
+-
+-
+-
+Index: app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt b/app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt
+--- a/app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt	
++++ b/app/src/main/java/com/udacity/project4/authentication/AuthenticationActivity.kt	(date 1669121918932)
+@@ -1,9 +1,7 @@
+ package com.udacity.project4.authentication
+ 
+-import android.content.Intent
+ import android.os.Bundle
+ import android.util.Log
+-import androidx.activity.viewModels
+ import androidx.appcompat.app.AppCompatActivity
+ import com.firebase.ui.auth.AuthMethodPickerLayout
+ import com.firebase.ui.auth.AuthUI
+@@ -12,7 +10,6 @@
+ import com.google.firebase.auth.FirebaseAuth
+ import com.udacity.project4.R
+ import com.udacity.project4.databinding.ActivityAuthenticationBinding
+-import com.udacity.project4.locationreminders.RemindersActivity
+ 
+ /**
+  * This class should be the starting point of the app, It asks the users to sign in / register, and redirects the
+@@ -29,9 +26,6 @@
+     // [END auth_fui_create_launcher]
+     private lateinit var binding: ActivityAuthenticationBinding
+ 
+-    // Get a reference to the ViewModel scoped to this Fragment
+-    private val viewModel by viewModels<AuthenticationViewModel>()
+-
+     companion object {
+         const val TAG = "AuthenticationActivity"
+     }
+@@ -42,48 +36,20 @@
+ 
+         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
+         setContentView(binding.root)
+-        observeAuthenticationState()
+ 
+         binding.loginButton.setOnClickListener {
+             launchSignInFlow()
+         }
+ 
+-//         Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
++//         TODO: Implement the create account and sign in using FirebaseUI, use sign in using email and sign in using Google
+ 
+-//          If the user was authenticated, send him to RemindersActivity
++//          TODO: If the user was authenticated, send him to RemindersActivity
+ 
+-//          a bonus is to customize the sign in flow to look nice using :
++//          TODO: a bonus is to customize the sign in flow to look nice using :
+         //https://github.com/firebase/FirebaseUI-Android/blob/master/auth/README.md#custom-layout
+ 
+     }
+ 
+-    /**
+-     * Observes the authentication state and changes the Activity
+-     */
+-    private fun observeAuthenticationState() {
+-
+-
+-        viewModel.authenticationState.observe(this) { authenticationState ->
+-
+-            when (authenticationState) {
+-                AuthenticationViewModel.AuthenticationState.AUTHENTICATED -> {
+-                    Log.e("Authentication Activity", "LoggedIn")
+-                    navigateToRemindersActivity()
+-                }
+-                else -> {
+-                    binding.loginButton.setOnClickListener {
+-                        launchSignInFlow()
+-                    }
+-                }
+-            }
+-        }
+-    }
+-
+-    private fun navigateToRemindersActivity() {
+-        startActivity(Intent(this, RemindersActivity::class.java))
+-        finish()
+-    }
+-
+     private fun launchSignInFlow() {
+ 
+         // Give users the option to sign in / register with their email or Google account.
+Index: app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt b/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceBroadcastReceiver.kt	(date 1669121918927)
+@@ -16,9 +16,8 @@
+ 
+ class GeofenceBroadcastReceiver : BroadcastReceiver() {
+     override fun onReceive(context: Context, intent: Intent) {
+-        //implement the onReceive method to receive the geofencing events at the background
+-        if (intent.action == GeofenceConstants.ACTION_GEOFENCE_EVENT) {
+-            GeofenceTransitionsJobIntentService.enqueueWork(context, intent)
+-        }
++
++//TODO: implement the onReceive method to receive the geofencing events at the background
++
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt b/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceTransitionsJobIntentService.kt	(date 1669121918925)
+@@ -2,17 +2,13 @@
+ 
+ import android.content.Context
+ import android.content.Intent
+-import android.util.Log
+ import androidx.core.app.JobIntentService
+ import com.google.android.gms.location.Geofence
+-import com.google.android.gms.location.GeofencingEvent
+-import com.udacity.project4.R
+ import com.udacity.project4.locationreminders.data.ReminderDataSource
+ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+ import com.udacity.project4.locationreminders.data.dto.Result
+ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
+ import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+-import com.udacity.project4.utils.errorMessage
+ import com.udacity.project4.utils.sendNotification
+ import kotlinx.coroutines.*
+ import org.koin.android.ext.android.inject
+@@ -25,10 +21,9 @@
+         get() = Dispatchers.IO + coroutineJob
+ 
+     companion object {
+-        private const val TAG = "GeofenceTransitionsJob"
+         private const val JOB_ID = 573
+ 
+-        //call this to start the JobIntentService to handle the geofencing transition events
++        //        TODO: call this to start the JobIntentService to handle the geofencing transition events
+         fun enqueueWork(context: Context, intent: Intent) {
+             enqueueWork(
+                 context,
+@@ -39,35 +34,14 @@
+     }
+ 
+     override fun onHandleWork(intent: Intent) {
+-        //handle the geofencing transition events and
+-        //send a notification to the user when he enters the geofence area
+-        //call @sendNotification
+-
+-        val geofencingEvent = GeofencingEvent.fromIntent(intent)
+-
+-        if (geofencingEvent != null) {
+-            if (geofencingEvent.hasError()) {
+-
+-                val errorMessage = errorMessage(applicationContext, geofencingEvent.errorCode)
+-                Log.e(TAG, errorMessage)
+-                return
+-            }
+-        }
++        //TODO: handle the geofencing transition events and
++        // send a notification to the user when he enters the geofence area
++        //TODO call @sendNotification
++    }
+ 
+-        if (geofencingEvent != null) {
+-            if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+-
+-                Log.v(TAG, applicationContext.getString(R.string.geofence_entered))
+-
+-                geofencingEvent.triggeringGeofences?.let { sendNotification(it) }
+-
+-            }
+-        }
+-    }
+-
+-    //get the request id of the current geofence
++    //TODO: get the request id of the current geofence
+     private fun sendNotification(triggeringGeofences: List<Geofence>) {
+-        val requestId = triggeringGeofences[0].requestId
++        val requestId = ""
+ 
+         //Get the local repository instance
+         val remindersLocalRepository: ReminderDataSource by inject()
+@@ -91,4 +65,5 @@
+             }
+         }
+     }
++
+ }
+Index: app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceUtils.kt
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceUtils.kt b/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceUtils.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/udacity/project4/locationreminders/geofence/GeofenceUtils.kt	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-package com.udacity.project4.locationreminders.geofence
+-
+-internal object GeofenceConstants{
+-    const val GEOFENCE_RADIUS = 500f
+-    const val ACTION_GEOFENCE_EVENT =
+-        "ACTION_GEOFENCE_EVENT"
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/selectreminderlocation/SelectLocationFragment.kt	(date 1669121918923)
+@@ -2,23 +2,25 @@
+ 
+ 
+ import android.Manifest
++import android.app.Activity
++import android.content.Intent
++import android.content.IntentSender
+ import android.content.pm.PackageManager
+ import android.content.res.Resources
+-import android.graphics.Color
+ import android.os.Bundle
++import android.util.Log
+ import android.view.*
+-import android.widget.Toast
+-import androidx.activity.result.ActivityResultLauncher
+-import androidx.activity.result.contract.ActivityResultContracts
+-import androidx.core.app.ActivityCompat
+-import androidx.core.view.MenuHost
+-import androidx.core.view.MenuProvider
+-import androidx.lifecycle.Lifecycle
++import androidx.core.content.ContextCompat
++import androidx.databinding.DataBindingUtil
++import com.google.android.gms.common.api.ApiException
++import com.google.android.gms.common.api.ResolvableApiException
++import com.google.android.gms.location.*
+ import com.google.android.gms.maps.CameraUpdateFactory
+ import com.google.android.gms.maps.GoogleMap
+ import com.google.android.gms.maps.OnMapReadyCallback
+ import com.google.android.gms.maps.SupportMapFragment
+ import com.google.android.gms.maps.model.*
++import com.google.android.material.snackbar.Snackbar
+ import com.udacity.project4.R
+ import com.udacity.project4.base.BaseFragment
+ import com.udacity.project4.base.NavigationCommand
+@@ -27,221 +29,63 @@
+ import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
+ import org.koin.android.ext.android.inject
+ 
+-class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback {
++class SelectLocationFragment : BaseFragment() {
+ 
+     //Use Koin to get the view model of the SaveReminder
+     override val _viewModel: SaveReminderViewModel by inject()
+     private lateinit var binding: FragmentSelectLocationBinding
+ 
+-    private var Poi: PointOfInterest? = null
+-    private var lat: Double = 0.0
+-    private var long: Double = 0.0
+-    private var title = ""
+-    private var isLocationSelected = false
+-
+-    private lateinit var map: GoogleMap
+-    private var requestPermissionLauncher = registerCallBack()
+-
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+     ): View? {
+         binding =
+-            FragmentSelectLocationBinding.inflate(layoutInflater, container, false)
++            DataBindingUtil.inflate(inflater, R.layout.fragment_select_location, container, false)
+ 
+         binding.viewModel = _viewModel
+         binding.lifecycleOwner = this
+ 
++        setHasOptionsMenu(true)
+         setDisplayHomeAsUpEnabled(true)
+-        setupMap()
++
++//        TODO: add the map setup implementation
++//        TODO: zoom to the user location after taking his permission
++//        TODO: add style to the map
++//        TODO: put a marker to location that the user selected
+ 
+-//        add the map setup implementation
+-//        zoom to the user location after taking his permission
+-//        add style to the map
+-//        put a marker to location that the user selected
+-//        call this function after the user confirms on the selected location
+-        binding.saveLocation.setOnClickListener {
+-            if (lat != null && long != null) {
+-                onLocationSelected()
+-            } else {
+-                Toast.makeText(context, "Please choose a location.", Toast.LENGTH_LONG).show()
+-            }
+-        }
++
++//        TODO: call this function after the user confirms on the selected location
++        onLocationSelected()
+ 
+         return binding.root
+     }
+ 
+-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+-        super.onViewCreated(view, savedInstanceState)
+-
+-        val menuHost: MenuHost = requireActivity()
+-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+-    }
+-
+-    private fun setupMap() {
+-        val mapFragment = childFragmentManager
+-            .findFragmentById(R.id.map) as SupportMapFragment
+-        mapFragment.getMapAsync(this)
+-    }
+-
+-    override fun onMapReady(p0: GoogleMap) {
+-        map = p0
+-        //Default location
+-        val sydney = LatLng(-34.0, 151.0)
+-        val zoomLevel = 15f
+-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel))
+-        map.uiSettings.isZoomControlsEnabled = true
+-        map.uiSettings.isCompassEnabled = true
+-        map.uiSettings.isMyLocationButtonEnabled = true
+-        enableUserLocation()
+-        setMapStyle(map)
+-        setPoiClick(map)
+-        setLongClick(map)
+-    }
+-
+-    private fun registerCallBack(): ActivityResultLauncher<Array<String>> {
+-        val _requestPermissionLauncher = registerForActivityResult(
+-            ActivityResultContracts.RequestMultiplePermissions()
+-        ) { permissions ->
+-            when {
+-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+-                    Toast.makeText(context, "Location permission is granted.", Toast.LENGTH_LONG)
+-                        .show()
+-                    map.isMyLocationEnabled = true
+-                    map.uiSettings.isMyLocationButtonEnabled = true
+-                    if (ActivityCompat.checkSelfPermission(
+-                            requireContext(),
+-                            Manifest.permission.ACCESS_FINE_LOCATION
+-                        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+-                            requireContext(),
+-                            Manifest.permission.ACCESS_COARSE_LOCATION
+-                        ) != PackageManager.PERMISSION_GRANTED
+-                    ) {
+-                        map.isMyLocationEnabled = true
+-                        map.uiSettings.isMyLocationButtonEnabled = true
+-                    }
+-                }
+-                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+-                    Toast.makeText(
+-                        context,
+-                        "Only approximate location access granted.",
+-                        Toast.LENGTH_LONG
+-                    ).show()
+-                }
+-                else -> {
+-                    Toast.makeText(
+-                        context,
+-                        "Location permission was not granted.",
+-                        Toast.LENGTH_LONG
+-                    ).show()
+-                }
+-            }
+-        }
+-        return _requestPermissionLauncher
+-    }
+-
+-    private fun enableUserLocation() {
+-        requestPermissionLauncher.launch(
+-            arrayOf(
+-                Manifest.permission.ACCESS_FINE_LOCATION,
+-                Manifest.permission.ACCESS_COARSE_LOCATION
+-            )
+-        )
+-    }
+-
+     private fun onLocationSelected() {
+-        //When the user confirms on the selected location,
+-        //send back the selected location details to the view model
+-        //and navigate back to the previous fragment to save the reminder and add the geofence
+-        _viewModel.latitude.value = lat
+-        _viewModel.longitude.value = long
+-        _viewModel.selectedPOI.value = Poi
+-        _viewModel.reminderSelectedLocationStr.value = title
+-        _viewModel.navigationCommand.postValue(NavigationCommand.Back)
++        //        TODO: When the user confirms on the selected location,
++        //         send back the selected location details to the view model
++        //         and navigate back to the previous fragment to save the reminder and add the geofence
+     }
+ 
+-    private fun setPoiClick(map: GoogleMap) {
+-        map.setOnPoiClickListener { poi ->
+-            map.clear()
+-            map.addMarker(
+-                MarkerOptions()
+-                    .position(poi.latLng)
+-                    .title(poi.name)
+-            )?.showInfoWindow()
+-            map.addCircle(
+-                CircleOptions()
+-                    .center(poi.latLng)
+-                    .radius(200.0)
+-                    .strokeColor(Color.argb(255, 255, 0, 0))
+-                    .fillColor(Color.argb(64, 255, 0, 0)).strokeWidth(4F)
+-
+-            )
+-            Poi = poi
+-            lat = poi.latLng.latitude
+-            long = poi.latLng.longitude
+-            title = poi.name
+-        }
+-        isLocationSelected = true
+-    }
+ 
+-    private fun setLongClick(map: GoogleMap) {
+-        map.setOnMapLongClickListener { latLong ->
+-            val zoomLevel = 15f
+-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, zoomLevel))
+-            map.addMarker(
+-                MarkerOptions()
+-                    .position(latLong)
+-                    .title(getString(R.string.dropped_pin))
+-            )?.showInfoWindow()
+-            lat = latLong.latitude
+-            long = latLong.longitude
+-            title = getString(R.string.dropped_pin)
+-        }
+-        isLocationSelected = true
++    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
++        inflater.inflate(R.menu.map_options, menu)
+     }
+ 
+-    private fun setMapStyle(map: GoogleMap) {
+-        try {
+-            // Customize the styling of the base map using a JSON object defined
+-            // in a raw resource file.
+-            val success = map.setMapStyle(
+-                context?.let {
+-                    MapStyleOptions.loadRawResourceStyle(
+-                        it,
+-                        R.raw.map_style
+-                    )
+-                }
+-            )
+-            if (!success) {
+-                Toast.makeText(context, "Error setting map style.", Toast.LENGTH_LONG).show()
+-            }
+-        } catch (e: Resources.NotFoundException) {
+-            Toast.makeText(context, "Missing map style error $e", Toast.LENGTH_LONG).show()
+-        }
+-    }
+-
+-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+-        menuInflater.inflate(R.menu.map_options, menu)
+-    }
+-
+-    override fun onMenuItemSelected(item: MenuItem) = when (item.itemId) {
+-        //Change the map type based on the user's selection.
++    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
++        // TODO: Change the map type based on the user's selection.
+         R.id.normal_map -> {
+-            map.mapType = GoogleMap.MAP_TYPE_NORMAL
+             true
+         }
+         R.id.hybrid_map -> {
+-            map.mapType = GoogleMap.MAP_TYPE_HYBRID
+             true
+         }
+         R.id.satellite_map -> {
+-            map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+             true
+         }
+         R.id.terrain_map -> {
+-            map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+             true
+         }
+-        else -> false
++        else -> super.onOptionsItemSelected(item)
+     }
++
++
+ }
+Index: app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderFragment.kt	(date 1669121918921)
+@@ -1,63 +1,32 @@
+ package com.udacity.project4.locationreminders.savereminder
+ 
+-import android.Manifest
+-import android.annotation.SuppressLint
+-import android.app.PendingIntent
+-import android.content.Intent
+-import android.content.IntentSender
+-import android.content.pm.PackageManager
+ import android.os.Bundle
+-import android.text.TextUtils
+-import android.util.Log
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+-import android.widget.Toast
+-import androidx.activity.result.ActivityResultLauncher
+-import androidx.activity.result.contract.ActivityResultContracts
+-import androidx.core.app.ActivityCompat
+-import com.google.android.gms.common.api.ResolvableApiException
+-import com.google.android.gms.location.*
+-import com.google.android.gms.maps.model.LatLng
++import androidx.databinding.DataBindingUtil
++import com.udacity.project4.R
+ import com.udacity.project4.base.BaseFragment
+ import com.udacity.project4.base.NavigationCommand
+ import com.udacity.project4.databinding.FragmentSaveReminderBinding
+-import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
+-import com.udacity.project4.locationreminders.geofence.GeofenceConstants
+-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+ import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
+ import org.koin.android.ext.android.inject
+-import java.util.*
+ 
+ class SaveReminderFragment : BaseFragment() {
+     //Get the view model this time as a single to be shared with the another fragment
+     override val _viewModel: SaveReminderViewModel by inject()
+     private lateinit var binding: FragmentSaveReminderBinding
+-    private val runningQOrLater =
+-        true
+-
+-    private lateinit var geofencingClient: GeofencingClient
+-    private lateinit var reminderData: ReminderDataItem
+-    private var requestPermissionLauncher = registerCallBack()
+-
+-    companion object {
+-        private const val TAG = "SaveReminderFragment"
+-        private const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
+-        private const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
+-        private const val REQUEST_TURN_DEVICE_LOCATION_ON = 29
+-    }
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+         binding =
+-            FragmentSaveReminderBinding.inflate(layoutInflater, container, false)
++            DataBindingUtil.inflate(inflater, R.layout.fragment_save_reminder, container, false)
+ 
+         setDisplayHomeAsUpEnabled(true)
+ 
+         binding.viewModel = _viewModel
+-        enableUserLocation()
+ 
+         return binding.root
+     }
+@@ -65,192 +34,22 @@
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+         binding.lifecycleOwner = this
+-
+         binding.selectLocation.setOnClickListener {
+-            //Navigate to another fragment to get the user location
++            //            Navigate to another fragment to get the user location
+             _viewModel.navigationCommand.value =
+                 NavigationCommand.To(SaveReminderFragmentDirections.actionSaveReminderFragmentToSelectLocationFragment())
+         }
+ 
+-        geofencingClient = LocationServices.getGeofencingClient(requireContext())
+-
+         binding.saveReminder.setOnClickListener {
+             val title = _viewModel.reminderTitle.value
+-            val description = _viewModel.reminderDescription.value
++            val description = _viewModel.reminderDescription
+             val location = _viewModel.reminderSelectedLocationStr.value
+-            val latitude = _viewModel.latitude.value
++            val latitude = _viewModel.latitude
+             val longitude = _viewModel.longitude.value
+ 
+-//            use the user entered reminder details to:
++//            TODO: use the user entered reminder details to:
+ //             1) add a geofencing request
+ //             2) save the reminder to the local db
+-
+-            reminderData = ReminderDataItem(title, description, location, latitude, longitude)
+-
+-            if (_viewModel.validateAndSaveReminder(reminderData)) {
+-                //addGeofence(reminderData)
+-                checkPermissionsAndAddGeofence()
+-            }
+-        }
+-    }
+-
+-    private fun registerCallBack(): ActivityResultLauncher<Array<String>> {
+-        val _requestPermissionLauncher = registerForActivityResult(
+-            ActivityResultContracts.RequestMultiplePermissions()
+-        ) { permissions ->
+-            when {
+-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+-                    checkDeviceLocationSettingsAndAddGeofence()
+-                }
+-                permissions.getOrDefault(Manifest.permission.ACCESS_BACKGROUND_LOCATION, false) -> {
+-                    checkDeviceLocationSettingsAndAddGeofence()
+-                }
+-                else -> {
+-                    Toast.makeText(
+-                        context,
+-                        "Location permission was not granted.",
+-                        Toast.LENGTH_LONG
+-                    ).show()
+-                }
+-            }
+-        }
+-        return _requestPermissionLauncher
+-    }
+-
+-    private fun checkDeviceLocationSettingsAndAddGeofence(resolve: Boolean = true) {
+-        val locationRequest = LocationRequest.create().apply {
+-            priority = LocationRequest.PRIORITY_LOW_POWER
+-        }
+-        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+-        val settingsClient = LocationServices.getSettingsClient(requireContext())
+-        val locationSettingsResponseTask =
+-            settingsClient.checkLocationSettings(builder.build())
+-        locationSettingsResponseTask.addOnFailureListener { exception ->
+-            if (exception is ResolvableApiException && resolve) {
+-                try {
+-                    exception.startResolutionForResult(
+-                        requireActivity(),
+-                        REQUEST_TURN_DEVICE_LOCATION_ON
+-                    )
+-                } catch (sendEx: IntentSender.SendIntentException) {
+-                    Log.d(TAG, "Error getting location settings resolution: " + sendEx.message)
+-                }
+-            } else {
+-                // Explain user why app needs this permission
+-            }
+-        }
+-        locationSettingsResponseTask.addOnCompleteListener {
+-            if (it.isSuccessful) {
+-                val title = _viewModel.reminderTitle.value
+-                val latitude = _viewModel.latitude.value
+-                val longitude = _viewModel.longitude.value
+-                val geofenceId = UUID.randomUUID().toString()
+-                if (latitude != null && longitude != null && !TextUtils.isEmpty(title))
+-                    addGeofence(LatLng(latitude, longitude), geofenceId)
+-            }
+-        }
+-    }
+-
+-    @SuppressLint("MissingPermission")
+-    private fun addGeofence(
+-        latLng: LatLng,
+-        geofenceId: String
+-    ) {
+-        val geofence = Geofence.Builder()
+-            .setRequestId(geofenceId)
+-            .setCircularRegion(
+-                latLng.latitude,
+-                latLng.longitude,
+-                GeofenceConstants.GEOFENCE_RADIUS
+-            )
+-            .setExpirationDuration(Geofence.NEVER_EXPIRE)
+-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+-            .build()
+-
+-        val request = GeofencingRequest.Builder()
+-            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+-            .addGeofence(geofence)
+-            .build()
+-
+-        val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
+-        intent.action = GeofenceConstants.ACTION_GEOFENCE_EVENT
+-
+-        val pendingIntent = PendingIntent.getBroadcast(
+-            requireContext(),
+-            0,
+-            intent,
+-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+-        )
+-
+-        geofencingClient.addGeofences(request, pendingIntent).run {
+-            addOnSuccessListener {
+-                Log.d(TAG, "Added geofence. Reminder has id $geofenceId .")
+-            }
+-            addOnFailureListener { e ->
+-                val errorMessage: String? = e.localizedMessage
+-                Toast.makeText(
+-                    context,
+-                    "Please give background location permission",
+-                    Toast.LENGTH_LONG
+-                ).show()
+-                Log.d(TAG, "fail in creating geofence: $errorMessage")
+-            }
+-        }
+-    }
+-
+-    private fun enableUserLocation() {
+-        requestPermissionLauncher.launch(
+-            arrayOf(
+-                Manifest.permission.ACCESS_FINE_LOCATION,
+-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+-            )
+-        )
+-    }
+-
+-    private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
+-        val foregroundLocationApproved = (
+-                PackageManager.PERMISSION_GRANTED ==
+-                        ActivityCompat.checkSelfPermission(
+-                            requireContext(),
+-                            Manifest.permission.ACCESS_FINE_LOCATION
+-                        ))
+-        val backgroundPermissionApproved =
+-            if (runningQOrLater) {
+-                PackageManager.PERMISSION_GRANTED ==
+-                        ActivityCompat.checkSelfPermission(
+-                            requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
+-                        )
+-            } else {
+-                true
+-            }
+-        return foregroundLocationApproved && backgroundPermissionApproved
+-    }
+-
+-    private fun requestForegroundAndBackgroundLocationPermissions() {
+-        if (foregroundAndBackgroundLocationPermissionApproved())
+-            return
+-        var permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+-        val resultCode = when {
+-            runningQOrLater -> {
+-                permissionsArray += Manifest.permission.ACCESS_BACKGROUND_LOCATION
+-                REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE
+-            }
+-            else -> REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE
+-        }
+-        Log.d(TAG, "Request foreground only location permission")
+-        ActivityCompat.requestPermissions(
+-            requireActivity(),
+-            permissionsArray,
+-            resultCode
+-        )
+-    }
+-
+-    private fun checkPermissionsAndAddGeofence() {
+-
+-        if (foregroundAndBackgroundLocationPermissionApproved()) {
+-            checkDeviceLocationSettingsAndAddGeofence()
+-        } else {
+-            requestForegroundAndBackgroundLocationPermissions()
+         }
+     }
+ 
+Index: app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModel.kt b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModel.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModel.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModel.kt	(date 1669121918919)
+@@ -14,12 +14,12 @@
+ 
+ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
+     BaseViewModel(app) {
+-    val reminderTitle = MutableLiveData<String?>()
+-    val reminderDescription = MutableLiveData<String?>()
+-    val reminderSelectedLocationStr = MutableLiveData<String?>()
+-    val selectedPOI = MutableLiveData<PointOfInterest?>()
+-    val latitude = MutableLiveData<Double?>()
+-    val longitude = MutableLiveData<Double?>()
++    val reminderTitle = MutableLiveData<String>()
++    val reminderDescription = MutableLiveData<String>()
++    val reminderSelectedLocationStr = MutableLiveData<String>()
++    val selectedPOI = MutableLiveData<PointOfInterest>()
++    val latitude = MutableLiveData<Double>()
++    val longitude = MutableLiveData<Double>()
+ 
+     /**
+      * Clear the live data objects to start fresh next time the view model gets called
+@@ -36,13 +36,10 @@
+     /**
+      * Validate the entered data then saves the reminder data to the DataSource
+      */
+-    //return if(valid)
+-    fun validateAndSaveReminder(reminderData: ReminderDataItem):Boolean {
++    fun validateAndSaveReminder(reminderData: ReminderDataItem) {
+         if (validateEnteredData(reminderData)) {
+             saveReminder(reminderData)
+-            return true
+         }
+-        return false
+     }
+ 
+     /**
+Index: app/src/main/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragment.kt b/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragment.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragment.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragment.kt	(date 1669121918916)
+@@ -1,16 +1,9 @@
+ package com.udacity.project4.locationreminders.reminderslist
+ 
+-import android.content.Intent
+ import android.os.Bundle
+-import android.util.Log
+ import android.view.*
+-import androidx.core.view.MenuHost
+-import androidx.core.view.MenuProvider
+-import androidx.lifecycle.Lifecycle
+-import com.firebase.ui.auth.AuthUI
+-import com.google.android.material.snackbar.Snackbar
++import androidx.databinding.DataBindingUtil
+ import com.udacity.project4.R
+-import com.udacity.project4.authentication.AuthenticationActivity
+ import com.udacity.project4.base.BaseFragment
+ import com.udacity.project4.base.NavigationCommand
+ import com.udacity.project4.databinding.FragmentRemindersBinding
+@@ -19,7 +12,7 @@
+ import com.udacity.project4.utils.setup
+ import org.koin.androidx.viewmodel.ext.android.viewModel
+ 
+-class ReminderListFragment : BaseFragment(), MenuProvider {
++class ReminderListFragment : BaseFragment() {
+     //use Koin to retrieve the ViewModel instance
+     override val _viewModel: RemindersListViewModel by viewModel()
+     private lateinit var binding: FragmentRemindersBinding
+@@ -27,16 +20,18 @@
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+-        binding = FragmentRemindersBinding.inflate(layoutInflater, container, false)
++        binding =
++            DataBindingUtil.inflate(
++                inflater,
++                R.layout.fragment_reminders, container, false
++            )
+         binding.viewModel = _viewModel
+ 
++        setHasOptionsMenu(true)
+         setDisplayHomeAsUpEnabled(false)
+         setTitle(getString(R.string.app_name))
+ 
+-        binding.refreshLayout.setOnRefreshListener {
+-            _viewModel.loadReminders()
+-            binding.refreshLayout.isRefreshing = false
+-        }
++        binding.refreshLayout.setOnRefreshListener { _viewModel.loadReminders() }
+ 
+         return binding.root
+     }
+@@ -48,8 +43,6 @@
+         binding.addReminderFAB.setOnClickListener {
+             navigateToAddReminder()
+         }
+-        val menuHost: MenuHost = requireActivity()
+-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+     }
+ 
+     override fun onResume() {
+@@ -75,32 +68,20 @@
+         binding.reminderssRecyclerView.setup(adapter)
+     }
+ 
+-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+-        //display logout as menu item
+-        menuInflater.inflate(R.menu.main_menu, menu)
++    override fun onOptionsItemSelected(item: MenuItem): Boolean {
++        when (item.itemId) {
++            R.id.logout -> {
++//                TODO: add the logout implementation
++            }
++        }
++        return super.onOptionsItemSelected(item)
++
++    }
++
++    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
++        super.onCreateOptionsMenu(menu, inflater)
++//        display logout as menu item
++        inflater.inflate(R.menu.main_menu, menu)
+     }
+ 
+-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+-        when (menuItem.itemId) {
+-            R.id.logout -> {
+-                Log.e("Reminder List Fragment", "back Pressed")
+-                AuthUI.getInstance()
+-                    .signOut(requireContext())
+-                    .addOnCompleteListener {
+-                        if (it.isSuccessful) {
+-                            val activity = requireActivity()
+-                            startActivity(Intent(activity, AuthenticationActivity::class.java))
+-                            activity.finish()
+-                        } else {
+-                            Snackbar.make(
+-                                requireView(),
+-                                getString(R.string.signout_failed),
+-                                Snackbar.LENGTH_SHORT
+-                            ).show()
+-                        }
+-                    }
+-            }
+-        }
+-        return false
+-    }
+ }
+Index: app/src/main/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModel.kt b/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModel.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModel.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModel.kt	(date 1669121918914)
+@@ -55,6 +55,6 @@
+      * Inform the user that there's not any data if the remindersList is empty
+      */
+     private fun invalidateShowNoData() {
+-        showNoData.value = remindersList.value == null || remindersList.value.isNullOrEmpty()
++        showNoData.value = remindersList.value == null || remindersList.value!!.isEmpty()
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt b/app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt
+--- a/app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt	
++++ b/app/src/main/java/com/udacity/project4/locationreminders/ReminderDescriptionActivity.kt	(date 1669121918912)
+@@ -2,14 +2,12 @@
+ 
+ import android.content.Context
+ import android.content.Intent
+-import android.os.Build
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
+ import androidx.databinding.DataBindingUtil
+ import com.udacity.project4.R
+ import com.udacity.project4.databinding.ActivityReminderDescriptionBinding
+ import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
+-import java.io.Serializable
+ 
+ /**
+  * Activity that displays the reminder details after the user clicks on the notification
+@@ -19,7 +17,7 @@
+     companion object {
+         private const val EXTRA_ReminderDataItem = "EXTRA_ReminderDataItem"
+ 
+-        //receive the reminder object after the user clicks on the notification
++        //        receive the reminder object after the user clicks on the notification
+         fun newIntent(context: Context, reminderDataItem: ReminderDataItem): Intent {
+             val intent = Intent(context, ReminderDescriptionActivity::class.java)
+             intent.putExtra(EXTRA_ReminderDataItem, reminderDataItem)
+@@ -34,19 +32,6 @@
+             this,
+             R.layout.activity_reminder_description
+         )
+-        //Add the implementation of the reminder details
+-        val dataItem = getSerializable(intent, EXTRA_ReminderDataItem, ReminderDataItem::class.java)
+-        binding.reminderDataItem = dataItem
+-    }
+-
+-    private fun <T : Serializable?> getSerializable(
+-        intent: Intent,
+-        key: String,
+-        className: Class<T>
+-    ): T {
+-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+-            intent.getSerializableExtra(key, className)!!
+-        else
+-            intent.getSerializableExtra(key) as T
++//        TODO: Add the implementation of the reminder details
+     }
+ }
+Index: app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt b/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt
+--- a/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt	
++++ b/app/src/test/java/com/udacity/project4/locationreminders/data/FakeDataSource.kt	(date 1669121918910)
+@@ -4,42 +4,25 @@
+ import com.udacity.project4.locationreminders.data.dto.Result
+ 
+ //Use FakeDataSource that acts as a test double to the LocalDataSource
+-class FakeDataSource(var reminders: MutableList<ReminderDTO> = mutableListOf()) :
+-    ReminderDataSource {
++class FakeDataSource : ReminderDataSource {
+ 
+-    //Create a fake data source to act as a double to the real data source
+-    private var shouldReturnError = false
+-    fun setShouldReturnError(shouldReturn: Boolean) {
+-        this.shouldReturnError = shouldReturn
+-    }
++//    TODO: Create a fake data source to act as a double to the real data source
++
+     override suspend fun getReminders(): Result<List<ReminderDTO>> {
+-        //"Return the reminders"
+-        return if (shouldReturnError) {
+-            Result.Error("Reminders not found", 404)
+-        } else {
+-            Result.Success(ArrayList(reminders))
+-        }
++        TODO("Return the reminders")
+     }
++
+     override suspend fun saveReminder(reminder: ReminderDTO) {
+-        //"save the reminder"
+-        reminders.add(reminder)
++        TODO("save the reminder")
+     }
++
+     override suspend fun getReminder(id: String): Result<ReminderDTO> {
+-        //"return the reminder with the id"
+-        return if (shouldReturnError) {
+-            Result.Error("Error")
+-        } else {
+-            val reminder = reminders.find { it.id == id }
+-
+-            if (reminder != null) {
+-                Result.Success(reminder)
+-            } else {
+-                Result.Error("Reminder not found", 404)
+-            }
+-        }
++        TODO("return the reminder with the id")
+     }
++
+     override suspend fun deleteAllReminders() {
+-        //"delete all the reminders"
+-        reminders.clear()
++        TODO("delete all the reminders")
+     }
++
++
+ }
+\ No newline at end of file
+Index: app/src/test/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModelTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModelTest.kt b/app/src/test/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModelTest.kt
+--- a/app/src/test/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModelTest.kt	
++++ b/app/src/test/java/com/udacity/project4/locationreminders/savereminder/SaveReminderViewModelTest.kt	(date 1669121918907)
+@@ -1,131 +1,16 @@
+ package com.udacity.project4.locationreminders.savereminder
+ 
+-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+-import androidx.test.core.app.ApplicationProvider
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+-import com.udacity.project4.locationreminders.MainCoroutineRule
+-import com.udacity.project4.locationreminders.data.FakeDataSource
+-import com.udacity.project4.locationreminders.getOrAwaitValue
+-import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
++
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+-import kotlinx.coroutines.runBlocking
+-import kotlinx.coroutines.test.pauseDispatcher
+-import kotlinx.coroutines.test.resumeDispatcher
+-import org.hamcrest.CoreMatchers
+-import org.hamcrest.MatcherAssert
+-import org.hamcrest.core.Is
+-import org.junit.Before
+-import org.junit.Rule
+-import org.junit.Test
+ import org.junit.runner.RunWith
+-import org.koin.core.context.stopKoin
+ 
+ @ExperimentalCoroutinesApi
+ @RunWith(AndroidJUnit4::class)
+ class SaveReminderViewModelTest {
+-    //provide testing to the SaveReminderViewModel and its live data objects
+-
+-    // Executes each task synchronously using Architecture Components.
+-    @get:Rule
+-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+ 
+-    // Set the main coroutines dispatcher for unit testing.
+-    @get:Rule
+-    val mainCoroutineRule = MainCoroutineRule()
+ 
+-    // Use a fake repository to be injected into the viewmodel
+-    private lateinit var fakeRepo: FakeDataSource
++    //TODO: provide testing to the SaveReminderView and its live data objects
+ 
+-    // Subject under test
+-    private lateinit var saveReminderViewModel: SaveReminderViewModel
+ 
+-    //initializing the fake repo
+-    @Before
+-    fun setupSaveReminderViewModel() {
+-        stopKoin()
+-        fakeRepo = FakeDataSource()
+-        saveReminderViewModel = SaveReminderViewModel(
+-            ApplicationProvider.getApplicationContext(),
+-            fakeRepo
+-        )
+-        runBlocking { fakeRepo.deleteAllReminders() }
+-    }
+-
+-    @Test
+-    fun saveReminder() {
+-        //Create Fake reminder data.
+-        val reminder = ReminderDataItem(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        saveReminderViewModel.saveReminder(reminder)
+-        MatcherAssert.assertThat(
+-            saveReminderViewModel.showToast.getOrAwaitValue(),
+-            Is.`is`("Reminder Saved !")
+-        )
+-    }
+-
+-    //Implement "saveReminderWithNoTitle()" function to test validating and saving new reminder with no title.
+-    //by matching showSnackBarInt Value.
+-    @Test
+-    fun saveReminderWithNoTitle() {
+-        //Create Fake reminder data with no title.
+-        val reminder = ReminderDataItem(
+-            title = "",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        saveReminderViewModel.validateAndSaveReminder(reminder)
+-        MatcherAssert.assertThat(
+-            saveReminderViewModel.showSnackBarInt.getOrAwaitValue(),
+-            CoreMatchers.notNullValue()
+-        )
+-    }
+-
+-    //Implement "saveReminderWithNoLocation()" function to test validating and saving new reminder with no Location.
+-    //by matching showSnackBarInt Value.
+-    @Test
+-    fun saveReminderWithNoLocation() {
+-        val reminder = ReminderDataItem(
+-            title = "reminder title",
+-            description = "description",
+-            location = "",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        saveReminderViewModel.validateAndSaveReminder(reminder)
+-        MatcherAssert.assertThat(
+-            saveReminderViewModel.showSnackBarInt.getOrAwaitValue(),
+-            CoreMatchers.notNullValue()
+-        )
+-    }
+-
+-    //Implement "showLoadingWhenSavingReminder()" function to test showing the loading when saving new reminder.
+-    //by matching showLoading Value.
+-    @Test
+-    fun showLoadingWhenSavingReminder() = runBlocking {
+-        val reminder = ReminderDataItem(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        mainCoroutineRule.pauseDispatcher()
+-        saveReminderViewModel.validateAndSaveReminder(reminder)
+-        MatcherAssert.assertThat(
+-            saveReminderViewModel.showLoading.getOrAwaitValue(),
+-            CoreMatchers.`is`(true)
+-        )
+-        mainCoroutineRule.resumeDispatcher()
+-        MatcherAssert.assertThat(
+-            saveReminderViewModel.showLoading.getOrAwaitValue(),
+-            CoreMatchers.`is`(false)
+-        )
+-    }
+ }
+\ No newline at end of file
+Index: app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt b/app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt
+--- a/app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt	
++++ b/app/src/test/java/com/udacity/project4/locationreminders/reminderslist/RemindersListViewModelTest.kt	(date 1669121918905)
+@@ -1,103 +1,13 @@
+ package com.udacity.project4.locationreminders.reminderslist
+ 
+-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+-import androidx.test.core.app.ApplicationProvider
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+-import com.udacity.project4.locationreminders.MainCoroutineRule
+-import com.udacity.project4.locationreminders.data.FakeDataSource
+-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+-import com.udacity.project4.locationreminders.getOrAwaitValue
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+-import kotlinx.coroutines.runBlocking
+-import kotlinx.coroutines.test.pauseDispatcher
+-import kotlinx.coroutines.test.resumeDispatcher
+-import kotlinx.coroutines.test.runBlockingTest
+-import org.hamcrest.CoreMatchers
+-import org.hamcrest.MatcherAssert
+-import org.junit.Before
+-import org.junit.Rule
+-import org.junit.Test
+ import org.junit.runner.RunWith
+-import org.koin.core.context.stopKoin
+ 
+ @RunWith(AndroidJUnit4::class)
+ @ExperimentalCoroutinesApi
+ class RemindersListViewModelTest {
+-    //provide testing to the RemindersListViewModel and its live data objects
+-
+-    // Executes each task synchronously using Architecture Components.
+-    @get:Rule
+-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+-
+-    // Set the main coroutines dispatcher for unit testing.
+-    @get:Rule
+-    val mainCoroutineRule = MainCoroutineRule()
+-
+-    // Use a fake repository to be injected into the viewmodel
+-    private lateinit var fakeRepo: FakeDataSource
+-
+-    // Subject under test
+-    private lateinit var remindersListViewModel: RemindersListViewModel
+-
+-    //initializing the fake repo
+-    @Before
+-    fun setupRemindersListViewModel() {
+-        stopKoin()
+-
+-        fakeRepo = FakeDataSource()
+-        remindersListViewModel = RemindersListViewModel(
+-            ApplicationProvider.getApplicationContext(),
+-            fakeRepo
+-        )
+-    }
+-
+-    @Test
+-    fun loadRemindersWhenRemindersAreUnavailable_showSnackBar() = runBlockingTest {
+-        fakeRepo.setShouldReturnError(true)
+-        remindersListViewModel.loadReminders()
+-        MatcherAssert.assertThat(
+-            remindersListViewModel.showSnackBar.getOrAwaitValue(),
+-            CoreMatchers.`is`("Reminders not found")
+-        )
+-    }
+ 
+-    @Test
+-    fun loadRemindersWhenRemindersAreNotDataAvailable() = runBlockingTest {
+-        fakeRepo.deleteAllReminders()
+-        remindersListViewModel.loadReminders()
+-        MatcherAssert.assertThat(
+-            remindersListViewModel.showNoData.getOrAwaitValue(),
+-            CoreMatchers.`is`(true)
+-        )
+-    }
++    //TODO: provide testing to the RemindersListViewModel and its live data objects
+ 
+-    @Test
+-    fun showLoading_withDataAvailable() = runBlocking {
+-        fakeRepo.deleteAllReminders()
+-
+-        //Create Fake reminder data.
+-        val reminder = ReminderDTO(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        fakeRepo.saveReminder(reminder)
+-        mainCoroutineRule.pauseDispatcher()
+-        remindersListViewModel.loadReminders()
+-        MatcherAssert.assertThat(
+-            remindersListViewModel.showLoading.getOrAwaitValue(),
+-            CoreMatchers.`is`(true)
+-        )
+-        mainCoroutineRule.resumeDispatcher()
+-        MatcherAssert.assertThat(
+-            remindersListViewModel.showLoading.getOrAwaitValue(),
+-            CoreMatchers.`is`(false)
+-        )
+-        MatcherAssert.assertThat(
+-            remindersListViewModel.showNoData.getOrAwaitValue(),
+-            CoreMatchers.`is`(false)
+-        )
+-    }
+ }
+\ No newline at end of file
+Index: app/src/test/java/com/udacity/project4/locationreminders/LiveDataTestUtil.kt
+===================================================================
+diff --git a/app/src/test/java/com/udacity/project4/locationreminders/LiveDataTestUtil.kt b/app/src/test/java/com/udacity/project4/locationreminders/LiveDataTestUtil.kt
+deleted file mode 100644
+--- a/app/src/test/java/com/udacity/project4/locationreminders/LiveDataTestUtil.kt	
++++ /dev/null	
+@@ -1,57 +0,0 @@
+-/* Copyright (C) 2019 The Android Open Source Project
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *      http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-package com.udacity.project4.locationreminders
+-
+-import androidx.annotation.VisibleForTesting
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.Observer
+-import java.util.concurrent.CountDownLatch
+-import java.util.concurrent.TimeUnit
+-import java.util.concurrent.TimeoutException
+-
+-
+-@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+-fun <T> LiveData<T>.getOrAwaitValue(
+-        time: Long = 2,
+-        timeUnit: TimeUnit = TimeUnit.SECONDS,
+-        afterObserve: () -> Unit = {}
+-): T {
+-    var data: T? = null
+-    val latch = CountDownLatch(1)
+-    val observer = object : Observer<T> {
+-        override fun onChanged(o: T?) {
+-            data = o
+-            latch.countDown()
+-            this@getOrAwaitValue.removeObserver(this)
+-        }
+-    }
+-    this.observeForever(observer)
+-
+-    try {
+-        afterObserve.invoke()
+-
+-        // Don't wait indefinitely if the LiveData is not set.
+-        if (!latch.await(time, timeUnit)) {
+-            throw TimeoutException("LiveData value was never set.")
+-        }
+-
+-    } finally {
+-        this.removeObserver(observer)
+-    }
+-
+-    @Suppress("UNCHECKED_CAST")
+-    return data as T
+-}
+\ No newline at end of file
+Index: app/src/test/java/com/udacity/project4/locationreminders/MainCoroutineRule.kt
+===================================================================
+diff --git a/app/src/test/java/com/udacity/project4/locationreminders/MainCoroutineRule.kt b/app/src/test/java/com/udacity/project4/locationreminders/MainCoroutineRule.kt
+deleted file mode 100644
+--- a/app/src/test/java/com/udacity/project4/locationreminders/MainCoroutineRule.kt	
++++ /dev/null	
+@@ -1,26 +0,0 @@
+-package com.udacity.project4.locationreminders
+-
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.ExperimentalCoroutinesApi
+-import kotlinx.coroutines.test.TestCoroutineDispatcher
+-import kotlinx.coroutines.test.TestCoroutineScope
+-import kotlinx.coroutines.test.resetMain
+-import kotlinx.coroutines.test.setMain
+-import org.junit.rules.TestWatcher
+-import org.junit.runner.Description
+-
+-@ExperimentalCoroutinesApi
+-class MainCoroutineRule(private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()):
+-        TestWatcher(),
+-        TestCoroutineScope by TestCoroutineScope(dispatcher) {
+-    override fun starting(description: Description) {
+-        super.starting(description)
+-        Dispatchers.setMain(dispatcher)
+-    }
+-
+-    override fun finished(description: Description) {
+-        super.finished(description)
+-        cleanupTestCoroutines()
+-        Dispatchers.resetMain()
+-    }
+-}
+\ No newline at end of file
+Index: app/src/androidTest/java/com/udacity/project4/util/DataBindingIdlingResource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/udacity/project4/util/DataBindingIdlingResource.kt b/app/src/androidTest/java/com/udacity/project4/util/DataBindingIdlingResource.kt
+--- a/app/src/androidTest/java/com/udacity/project4/util/DataBindingIdlingResource.kt	
++++ b/app/src/androidTest/java/com/udacity/project4/util/DataBindingIdlingResource.kt	(date 1669121918896)
+@@ -23,7 +23,7 @@
+ import androidx.fragment.app.testing.FragmentScenario
+ import androidx.test.core.app.ActivityScenario
+ import androidx.test.espresso.IdlingResource
+-import java.util.*
++import java.util.UUID
+ 
+ /**
+  * An espresso idling resource implementation that reports idle status for all data binding
+@@ -35,11 +35,9 @@
+ class DataBindingIdlingResource : IdlingResource {
+     // list of registered callbacks
+     private val idlingCallbacks = mutableListOf<IdlingResource.ResourceCallback>()
+-
+     // give it a unique id to workaround an espresso bug where you cannot register/unregister
+     // an idling resource w/ the same name.
+     private val id = UUID.randomUUID().toString()
+-
+     // holds whether isIdle is called and the result was false. We track this to avoid calling
+     // onTransitionToIdle callbacks if Espresso never thought we were idle in the first place.
+     private var wasNotIdle = false
+@@ -106,8 +104,8 @@
+ /**
+  * Sets the fragment from a [FragmentScenario] to be used from [DataBindingIdlingResource].
+  */
+-fun DataBindingIdlingResource.monitorFragment(fragmentScenario: FragmentScenario<Fragment>) {
+-    fragmentScenario.onFragment { fragment ->
+-        this.activity = fragment.requireActivity()
++fun DataBindingIdlingResource.monitorFragment(fragmentScenario: FragmentScenario<out Fragment>) {
++    fragmentScenario.onFragment {
++        this.activity = it.requireActivity()
+     }
+ }
+Index: app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt b/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt
+--- a/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt	
++++ b/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersDaoTest.kt	(date 1669121918894)
+@@ -1,19 +1,8 @@
+ package com.udacity.project4.locationreminders.data.local
+ 
+-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+-import androidx.room.Room
+-import androidx.test.core.app.ApplicationProvider
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+ import androidx.test.filters.SmallTest
+-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+-import kotlinx.coroutines.test.runBlockingTest
+-import org.hamcrest.CoreMatchers
+-import org.hamcrest.MatcherAssert
+-import org.junit.After
+-import org.junit.Before
+-import org.junit.Rule
+-import org.junit.Test
+ import org.junit.runner.RunWith
+ 
+ @ExperimentalCoroutinesApi
+@@ -21,48 +10,7 @@
+ //Unit test the DAO
+ @SmallTest
+ class RemindersDaoTest {
+-    //Add testing implementation to the RemindersDao.kt
+-    private lateinit var database: RemindersDatabase
+-
+-    // Executes each task synchronously using Architecture Components.
+-    @get:Rule
+-    var instantExecutorRule = InstantTaskExecutorRule()
+-
+-    @Before
+-    fun initDb() {
+-        // Using an in-memory database so that the information stored here disappears when the
+-        // process is killed.
+-        database = Room.inMemoryDatabaseBuilder(
+-            ApplicationProvider.getApplicationContext(),
+-            RemindersDatabase::class.java
+-        ).build()
+-    }
+-
+-    @After
+-    fun closeDb() = database.close()
+ 
+-    @Test
+-    fun insertReminderAndGetById() = runBlockingTest {
+-        // GIVEN - Insert a reminder.
+-        val reminder = ReminderDTO(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        database.reminderDao().saveReminder(reminder)
++//    TODO: Add testing implementation to the RemindersDao.kt
+ 
+-        // WHEN - Get the reminder by id from the database.
+-        val loaded = database.reminderDao().getReminderById(reminder.id)
+-
+-        // THEN - The loaded data contains the expected values.
+-        MatcherAssert.assertThat(loaded as ReminderDTO, CoreMatchers.notNullValue())
+-        MatcherAssert.assertThat(loaded.id, CoreMatchers.`is`(reminder.id))
+-        MatcherAssert.assertThat(loaded.title, CoreMatchers.`is`(reminder.title))
+-        MatcherAssert.assertThat(loaded.description, CoreMatchers.`is`(reminder.description))
+-        MatcherAssert.assertThat(loaded.latitude, CoreMatchers.`is`(reminder.latitude))
+-        MatcherAssert.assertThat(loaded.longitude, CoreMatchers.`is`(reminder.longitude))
+-        MatcherAssert.assertThat(loaded.location, CoreMatchers.`is`(reminder.location))
+-    }
+ }
+\ No newline at end of file
+Index: app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt b/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt
+--- a/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt	
++++ b/app/src/androidTest/java/com/udacity/project4/locationreminders/data/local/RemindersLocalRepositoryTest.kt	(date 1669121918891)
+@@ -10,8 +10,9 @@
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+ import kotlinx.coroutines.runBlocking
+-import org.hamcrest.CoreMatchers
+-import org.hamcrest.MatcherAssert
++import org.hamcrest.CoreMatchers.`is`
++import org.hamcrest.CoreMatchers.instanceOf
++import org.hamcrest.MatcherAssert.assertThat
+ import org.junit.After
+ import org.junit.Before
+ import org.junit.Rule
+@@ -20,79 +21,10 @@
+ 
+ @ExperimentalCoroutinesApi
+ @RunWith(AndroidJUnit4::class)
++//Medium Test to test the repository
+ @MediumTest
+ class RemindersLocalRepositoryTest {
+-    //Add testing implementation to the RemindersLocalRepository.kt
+-    private lateinit var database: RemindersDatabase
+-    private lateinit var repository: RemindersLocalRepository
+-
+-    //Executes each task synchronously using Architecture Components.
+-    @get:Rule
+-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+-
+-    @Before
+-    fun setup() {
+-        // using an in-memory database for testing, since it doesn't survive killing the process.
+-        database = Room.inMemoryDatabaseBuilder(
+-            ApplicationProvider.getApplicationContext(),
+-            RemindersDatabase::class.java
+-        ).allowMainThreadQueries().build()
+-        //Inject The Dispatcher.
+-        repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.Main)
+-    }
+-
+-    @After
+-    fun cleanUp() {
+-        database.close()
+-    }
+ 
+-    @Test
+-    fun savesAndRetrievesReminder() = runBlocking {
+-        // GIVEN - A new reminder saved in the database.
+-        val newReminder = ReminderDTO(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        repository.saveReminder(newReminder)
++//    TODO: Add testing implementation to the RemindersLocalRepository.kt
+ 
+-        // WHEN reminder retrieved by ID.
+-        val result = repository.getReminder(newReminder.id)
+-
+-        // THEN Same reminder is returned.
+-        MatcherAssert.assertThat(result is Result.Success, CoreMatchers.`is`(true))
+-        result as Result.Success
+-
+-        MatcherAssert.assertThat(result.data.title, CoreMatchers.`is`(newReminder.title))
+-        MatcherAssert.assertThat(
+-            result.data.description,
+-            CoreMatchers.`is`(newReminder.description)
+-        )
+-        MatcherAssert.assertThat(result.data.latitude, CoreMatchers.`is`(newReminder.latitude))
+-        MatcherAssert.assertThat(result.data.longitude, CoreMatchers.`is`(newReminder.longitude))
+-        MatcherAssert.assertThat(result.data.location, CoreMatchers.`is`(newReminder.location))
+-    }
+-
+-    @Test
+-    fun deleteAllRemindersAndRetrieveReminderById() = runBlocking {
+-        // GIVEN A new reminder saved in the database.
+-        val reminder = ReminderDTO(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        repository.saveReminder(reminder)
+-        repository.deleteAllReminders()
+-
+-        // WHEN reminder retrieved by ID.
+-        val result = repository.getReminder(reminder.id)
+-        // Then the reminder cant be retrieved from the persistent repository
+-        MatcherAssert.assertThat(result is Result.Error, CoreMatchers.`is`(true))
+-        result as Result.Error
+-        MatcherAssert.assertThat(result.message, CoreMatchers.`is`("Reminder not found!"))
+-    }
+ }
+\ No newline at end of file
+Index: app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt b/app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt
+--- a/app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt	
++++ b/app/src/androidTest/java/com/udacity/project4/locationreminders/reminderslist/ReminderListFragmentTest.kt	(date 1669121918889)
+@@ -1,126 +1,31 @@
+ package com.udacity.project4.locationreminders.reminderslist
+ 
++import android.content.Context
+ import android.os.Bundle
+-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+ import androidx.fragment.app.testing.launchFragmentInContainer
+ import androidx.navigation.NavController
+ import androidx.navigation.Navigation
+-import androidx.test.core.app.ApplicationProvider
+-import androidx.test.espresso.Espresso
+-import androidx.test.espresso.action.ViewActions
+-import androidx.test.espresso.assertion.ViewAssertions
+-import androidx.test.espresso.matcher.ViewMatchers
++import androidx.test.core.app.ApplicationProvider.getApplicationContext
++import androidx.test.espresso.Espresso.onView
++import androidx.test.espresso.action.ViewActions.click
++import androidx.test.espresso.matcher.ViewMatchers.withId
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+ import androidx.test.filters.MediumTest
+ import com.udacity.project4.R
+-import com.udacity.project4.locationreminders.data.ReminderDataSource
+-import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+-import com.udacity.project4.locationreminders.data.local.LocalDB
+-import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+-import kotlinx.coroutines.runBlocking
+-import kotlinx.coroutines.test.runBlockingTest
+-import org.hamcrest.CoreMatchers
+-import org.junit.Before
+-import org.junit.Rule
++import org.junit.Assert.*
+ import org.junit.Test
+ import org.junit.runner.RunWith
+-import org.koin.android.ext.koin.androidContext
+-import org.koin.androidx.viewmodel.dsl.viewModel
+-import org.koin.core.context.GlobalContext
+-import org.koin.core.context.startKoin
+-import org.koin.core.context.stopKoin
+-import org.koin.dsl.module
+-import org.mockito.Mockito
++import org.mockito.Mockito.mock
++import org.mockito.Mockito.verify
+ 
+ @RunWith(AndroidJUnit4::class)
+ @ExperimentalCoroutinesApi
+ //UI Testing
+ @MediumTest
+ class ReminderListFragmentTest {
+-//test the navigation of the fragments.
+-//test the displayed data on the UI.
+-//add testing for the error messages.
+-
+-    // Use a fake repository to be injected into the viewModel
+-    private lateinit var repository: ReminderDataSource
+-
+-    // Executes each task synchronously using Architecture Components.
+-    @get:Rule
+-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+-
+-    //initializing the fake repo and start koin
+-    @Before
+-    fun initRepository() {
+-        stopKoin()
+-        val myModule = module {
+-            //Declaring a ViewModel be later injected into Fragment with dedicated injector using by viewModel()
+-            viewModel {
+-                RemindersListViewModel(
+-                    ApplicationProvider.getApplicationContext(), get() as ReminderDataSource
+-                )
+-            }
+-            single { RemindersLocalRepository(get()) as ReminderDataSource }
+-            single { LocalDB.createRemindersDao(ApplicationProvider.getApplicationContext()) }
+-        }
+-        startKoin {
+-            androidContext(ApplicationProvider.getApplicationContext())
+-            modules(listOf(myModule))
+-        }
+-        repository = GlobalContext.get().get()
+-        runBlocking {
+-            repository.deleteAllReminders()
+-        }
+-    }
+ 
+-    @Test
+-    fun clickOnFabNavigatesToSaveReminderFragment() {
+-        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+-        val navController = Mockito.mock(NavController::class.java)
+-
+-        scenario.onFragment {
+-            Navigation.setViewNavController(it.view!!, navController)
+-        }
+-
+-        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
+-        Mockito.verify(navController).navigate(ReminderListFragmentDirections.toSaveReminder())
+-    }
+-
+-    @Test
+-    fun remindersDisplayedInUi() = runBlockingTest {
+-        val reminder = ReminderDTO(
+-            title = "reminder title",
+-            description = "description",
+-            location = "location",
+-            latitude = 30.033333,
+-            longitude = 31.233334
+-        )
+-        runBlocking {
+-            repository.saveReminder(reminder)
+-        }
+-        launchFragmentInContainer<ReminderListFragment>(Bundle.EMPTY, R.style.AppTheme)
+-        Espresso.onView(ViewMatchers.withId(R.id.noDataTextView)).check(
+-            ViewAssertions.matches(
+-                CoreMatchers.not(
+-                    ViewMatchers.isDisplayed()
+-                )
+-            )
+-        )
+-        Espresso.onView(ViewMatchers.withText(reminder.title))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        Espresso.onView(ViewMatchers.withText(reminder.description)).check(
+-            ViewAssertions.matches(
+-                ViewMatchers.isDisplayed()
+-            )
+-        )
+-        Espresso.onView(ViewMatchers.withText(reminder.location))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-    }
+-
+-    @Test
+-    fun noRemindersShowNoData() = runBlockingTest {
+-        launchFragmentInContainer<ReminderListFragment>(Bundle.EMPTY, R.style.AppTheme)
+-        Espresso.onView(ViewMatchers.withId(R.id.noDataTextView))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-    }
++//    TODO: test the navigation of the fragments.
++//    TODO: test the displayed data on the UI.
++//    TODO: add testing for the error messages.
+ }
+\ No newline at end of file
+Index: app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt b/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt
+--- a/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt	
++++ b/app/src/androidTest/java/com/udacity/project4/RemindersActivityTest.kt	(date 1669121918886)
+@@ -2,47 +2,32 @@
+ 
+ import android.app.Application
+ import androidx.test.core.app.ApplicationProvider.getApplicationContext
+-import androidx.test.core.app.launchActivity
+-import androidx.test.espresso.Espresso
+-import androidx.test.espresso.IdlingRegistry
+-import androidx.test.espresso.action.ViewActions
+-import androidx.test.espresso.assertion.ViewAssertions
+-import androidx.test.espresso.matcher.ViewMatchers
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+ import androidx.test.filters.LargeTest
+-import com.udacity.project4.locationreminders.RemindersActivity
+ import com.udacity.project4.locationreminders.data.ReminderDataSource
+ import com.udacity.project4.locationreminders.data.local.LocalDB
+ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
+ import com.udacity.project4.locationreminders.reminderslist.RemindersListViewModel
+ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
+-import com.udacity.project4.util.DataBindingIdlingResource
+-import com.udacity.project4.util.monitorActivity
+ import kotlinx.coroutines.runBlocking
+-import org.junit.After
+ import org.junit.Before
+-import org.junit.Test
+ import org.junit.runner.RunWith
+ import org.koin.androidx.viewmodel.dsl.viewModel
+ import org.koin.core.context.startKoin
+ import org.koin.core.context.stopKoin
+ import org.koin.dsl.module
+-import org.koin.test.KoinTest
++import org.koin.test.AutoCloseKoinTest
+ import org.koin.test.get
+ 
+ @RunWith(AndroidJUnit4::class)
+ @LargeTest
+ //END TO END test to black box test the app
+ class RemindersActivityTest :
+-    KoinTest {
+-    // Extended Koin Test - embed autoClose @after method to close Koin after every test
++    AutoCloseKoinTest() {// Extended Koin Test - embed autoclose @after method to close Koin after every test
+ 
+     private lateinit var repository: ReminderDataSource
+     private lateinit var appContext: Application
+ 
+-    // An Idling Resource that waits for Data Binding to have no pending bindings
+-    private val dataBindingIdlingResource = DataBindingIdlingResource()
+-
+     /**
+      * As we use Koin as a Service Locator Library to develop our code, we'll also use Koin to test our code.
+      * at this step we will initialize Koin related code to be able to use it in out testing.
+@@ -80,50 +65,7 @@
+         }
+     }
+ 
+-    /**
+-     * Idling resources tell Espresso that the app is idle or busy. This is needed when operations
+-     * are not scheduled in the main Looper (for example when executed on a different thread).
+-     */
+-    @Before
+-    fun registerIdlingResource() {
+-        IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+-    }
+ 
+-    /**
+-     * Unregister your Idling Resource so it can be garbage collected and does not leak any memory.
+-     */
+-    @After
+-    fun unregisterIdlingResource() {
+-        IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
+-    }
++//    TODO: add End to End testing to the app
+ 
+-    //add End to End testing to the app
+-    @Test
+-    fun createReminderAndSaveIt() {
+-        val activityScenario = launchActivity<RemindersActivity>()
+-        dataBindingIdlingResource.monitorActivity(activityScenario)
+-
+-        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
+-        Espresso.onView(ViewMatchers.withId(R.id.reminderTitle))
+-            .perform(ViewActions.typeText("Title"), ViewActions.closeSoftKeyboard())
+-        Espresso.onView(ViewMatchers.withText("Title"))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        Espresso.onView(ViewMatchers.withId(R.id.reminderDescription))
+-            .perform(ViewActions.typeText("Description"), ViewActions.closeSoftKeyboard())
+-        Espresso.onView(ViewMatchers.withText("Description"))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        Espresso.onView(ViewMatchers.withId(R.id.selectLocation)).perform(ViewActions.click())
+-        Espresso.onView(ViewMatchers.withId(R.id.map)).perform(ViewActions.longClick())
+-        Thread.sleep(2000)
+-        Espresso.onView(ViewMatchers.withId(R.id.save_location)).perform(ViewActions.click())
+-        Thread.sleep(2000)
+-        Espresso.onView(ViewMatchers.withId(R.id.saveReminder)).perform(ViewActions.click())
+-        Espresso.onView(ViewMatchers.withText("Title"))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        Espresso.onView(ViewMatchers.withText("Description"))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        Espresso.onView(ViewMatchers.withText(R.string.dropped_pin))
+-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+-        activityScenario.close()
+-    }
+ }
+Index: app/build/outputs/androidTest-results/connected/test-result.pb
+===================================================================
+diff --git a/app/build/outputs/androidTest-results/connected/test-result.pb b/app/build/outputs/androidTest-results/connected/test-result.pb
+deleted file mode 100644
+--- a/app/build/outputs/androidTest-results/connected/test-result.pb	
++++ /dev/null	
+@@ -1,104 +0,0 @@
+-
+-�
+-a
+-RemindersActivityTestcom.udacity.project4createReminderAndSaveIt2��ߛ����:��ߛ���c"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.RemindersActivityTest-createReminderAndSaveIt.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-y
+-RemindersDaoTest1com.udacity.project4.locationreminders.data.localinsertReminderAndGetById2��ߛ���R:��ߛ���z"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.data.local.RemindersDaoTest-insertReminderAndGetById.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-�
+-RemindersLocalRepositoryTest1com.udacity.project4.locationreminders.data.local)deleteAllRemindersAndRetrieveReminderById2��ߛ���{:��ߛ����"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-deleteAllRemindersAndRetrieveReminderById.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-�
+-RemindersLocalRepositoryTest1com.udacity.project4.locationreminders.data.localsavesAndRetrievesReminder2��ߛ����:��ߛ����"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-savesAndRetrievesReminder.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-�
+-ReminderListFragmentTest4com.udacity.project4.locationreminders.reminderslistnoRemindersShowNoData2��ߛ����:��ߛ����"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-noRemindersShowNoData.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-�
+-ReminderListFragmentTest4com.udacity.project4.locationreminders.reminderslist)clickOnFabNavigatesToSaveReminderFragment2��ߛ����:��ߛ���T"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-clickOnFabNavigatesToSaveReminderFragment.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo�
+-�
+-ReminderListFragmentTest4com.udacity.project4.locationreminders.reminderslistremindersDisplayedInUi2��ߛ���):��ߛ����"�
+-
+-logcatandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-remindersDisplayedInUi.txt"�
+-
+-device-infoandroid�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\device-info.pb"�
+-
+-device-info.meminfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\meminfo"�
+-
+-device-info.cpuinfoandroid~
+-|D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\cpuinfo*�
+-c
+-test-results.logOcom.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver�
+-�D:\Studying\Kotlin\Udacity\LocationReminder\app\build\outputs\androidTest-results\connected\Pixel_4_API_30(AVD) - 11\testlog\test-results.log 2
+-text/plain
+\ No newline at end of file
+Index: app/build/generated/source/kapt/debug/androidx/databinding/DataBindingComponent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build/generated/source/kapt/debug/androidx/databinding/DataBindingComponent.java b/app/build/generated/source/kapt/debug/androidx/databinding/DataBindingComponent.java
+--- a/app/build/generated/source/kapt/debug/androidx/databinding/DataBindingComponent.java	
++++ b/app/build/generated/source/kapt/debug/androidx/databinding/DataBindingComponent.java	(date 1669121918801)
+@@ -1,4 +1,0 @@
+-package androidx.databinding;
+-
+-public interface DataBindingComponent {
+-}
+Index: app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml b/app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml
+--- a/app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml	
++++ b/app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml	(date 1669121918626)
+@@ -69,9 +69,9 @@
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />
+ 
+-        <activity android:name="com.udacity.project4.locationreminders.RemindersActivity" />
++        <activity android:name="com.udacity.project4.authentication.AuthenticationActivity" />
+         <activity
+-            android:name="com.udacity.project4.authentication.AuthenticationActivity"
++            android:name="com.udacity.project4.locationreminders.RemindersActivity"
+             android:exported="true" >
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: .idea/androidTestResultsUserPreferences.xml
+===================================================================
+diff --git a/.idea/androidTestResultsUserPreferences.xml b/.idea/androidTestResultsUserPreferences.xml
+deleted file mode 100644
+--- a/.idea/androidTestResultsUserPreferences.xml	
++++ /dev/null	
+@@ -1,87 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AndroidTestResultsUserPreferences">
+-    <option name="androidTestResultsTableState">
+-      <map>
+-        <entry key="-1159893720">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-        <entry key="-271820233">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-        <entry key="110941273">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-        <entry key="358718836">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-        <entry key="1234624208">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-        <entry key="1608043865">
+-          <value>
+-            <AndroidTestResultsTableState>
+-              <option name="preferredColumnWidths">
+-                <map>
+-                  <entry key="Duration" value="90" />
+-                  <entry key="Pixel_4_API_30" value="120" />
+-                  <entry key="Tests" value="360" />
+-                </map>
+-              </option>
+-            </AndroidTestResultsTableState>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/local.properties b/local.properties
+--- a/local.properties	
++++ b/local.properties	(date 1669121918601)
+@@ -7,5 +7,4 @@
+ # Location of the SDK. This is only used by Gradle.
+ # For customization when using a Version Control System, please read the
+ # header note.
+-
+ sdk.dir=C\:\\Users\\noure\\AppData\\Local\\Android\\Sdk
+\ No newline at end of file
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/cpuinfo b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/cpuinfo
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/meminfo b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/meminfo
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/testlog/test-results.log b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/testlog/test-results.log
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/device-info.pb b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/device-info.pb
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/test-result.pb b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/test-result.pb
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/test-result.textproto b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/test-result.textproto
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.RemindersActivityTest-createReminderAndSaveIt.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.RemindersActivityTest-createReminderAndSaveIt.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersDaoTest-insertReminderAndGetById.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersDaoTest-insertReminderAndGetById.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-noRemindersShowNoData.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-noRemindersShowNoData.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-remindersDisplayedInUi.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-remindersDisplayedInUi.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-savesAndRetrievesReminder.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-savesAndRetrievesReminder.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-clickOnFabNavigatesToSaveReminderFragment.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest-clickOnFabNavigatesToSaveReminderFragment.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-deleteAllRemindersAndRetrieveReminderById.txt b/app/build/outputs/androidTest-results/connected/Pixel_4_API_30(AVD) - 11/logcat-com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest-deleteAllRemindersAndRetrieveReminderById.txt
+deleted file mode 100644
+diff --git a/app/build/outputs/androidTest-results/connected/TEST-Pixel_4_API_30(AVD) - 11-_app-.xml b/app/build/outputs/androidTest-results/connected/TEST-Pixel_4_API_30(AVD) - 11-_app-.xml
+deleted file mode 100644
+diff --git a/app/build/generated/source/buildConfig/androidTest/debug/com/udacity/project4/test/BuildConfig.java b/app/build/generated/source/buildConfig/androidTest/debug/com/udacity/project4/test/BuildConfig.java
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/js/report.js b/app/build/reports/tests/testDebugUnitTest/js/report.js
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/css/style.css b/app/build/reports/tests/testDebugUnitTest/css/style.css
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/css/base-style.css b/app/build/reports/tests/testDebugUnitTest/css/base-style.css
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/classes/com.udacity.project4.locationreminders.savereminder.SaveReminderViewModelTest.html b/app/build/reports/tests/testDebugUnitTest/classes/com.udacity.project4.locationreminders.savereminder.SaveReminderViewModelTest.html
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/packages/com.udacity.project4.locationreminders.savereminder.html b/app/build/reports/tests/testDebugUnitTest/packages/com.udacity.project4.locationreminders.savereminder.html
+deleted file mode 100644
+diff --git a/app/build/reports/tests/testDebugUnitTest/index.html b/app/build/reports/tests/testDebugUnitTest/index.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/js/report.js b/app/build/reports/androidTests/connected/js/report.js
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/css/style.css b/app/build/reports/androidTests/connected/css/style.css
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/css/base-style.css b/app/build/reports/androidTests/connected/css/base-style.css
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/index.html b/app/build/reports/androidTests/connected/index.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.html b/app/build/reports/androidTests/connected/com.udacity.project4.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.RemindersActivityTest.html b/app/build/reports/androidTests/connected/com.udacity.project4.RemindersActivityTest.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.html b/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.reminderslist.html b/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.reminderslist.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.RemindersDaoTest.html b/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.RemindersDaoTest.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest.html b/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.reminderslist.ReminderListFragmentTest.html
+deleted file mode 100644
+diff --git a/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest.html b/app/build/reports/androidTests/connected/com.udacity.project4.locationreminders.data.local.RemindersLocalRepositoryTest.html
+deleted file mode 100644
+diff --git a/app/build/test-results/testDebugUnitTest/binary/output.bin b/app/build/test-results/testDebugUnitTest/binary/output.bin
+deleted file mode 100644
+diff --git a/app/build/test-results/testDebugUnitTest/binary/results.bin b/app/build/test-results/testDebugUnitTest/binary/results.bin
+deleted file mode 100644
+diff --git a/app/build/test-results/testDebugUnitTest/binary/output.bin.idx b/app/build/test-results/testDebugUnitTest/binary/output.bin.idx
+deleted file mode 100644
+diff --git a/app/build/test-results/testDebugUnitTest/TEST-com.udacity.project4.locationreminders.savereminder.SaveReminderViewModelTest.xml b/app/build/test-results/testDebugUnitTest/TEST-com.udacity.project4.locationreminders.savereminder.SaveReminderViewModelTest.xml
+deleted file mode 100644
