@@ -5,11 +5,17 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+import com.udacity.project4.locationreminders.data.dto.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
@@ -38,6 +44,33 @@ class RemindersLocalRepositoryTest {
     @After
     fun cleanUp() {
         database.close()
+    }
+
+    @Test
+    fun saveAndRetrieveReminder() = runBlocking {
+
+        val newReminder = ReminderDTO(
+            title = "reminder title",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+        repository.saveReminder(newReminder)
+
+        val result = repository.getReminder(newReminder.id)
+
+        MatcherAssert.assertThat(result is Result.Success, CoreMatchers.`is`(true))
+        result as Result.Success
+
+        MatcherAssert.assertThat(result.data.title, CoreMatchers.`is`(newReminder.title))
+        MatcherAssert.assertThat(
+            result.data.description,
+            CoreMatchers.`is`(newReminder.description)
+        )
+        MatcherAssert.assertThat(result.data.latitude, CoreMatchers.`is`(newReminder.latitude))
+        MatcherAssert.assertThat(result.data.longitude, CoreMatchers.`is`(newReminder.longitude))
+        MatcherAssert.assertThat(result.data.location, CoreMatchers.`is`(newReminder.location))
     }
 
 }
