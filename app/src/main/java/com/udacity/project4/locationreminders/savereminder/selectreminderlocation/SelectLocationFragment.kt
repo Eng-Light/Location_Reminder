@@ -4,6 +4,7 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
@@ -17,12 +18,14 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.udacity.project4.R
@@ -56,12 +59,15 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         binding.viewModel = _viewModel
         binding.lifecycleOwner = this
 
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
+
         setDisplayHomeAsUpEnabled(true)
         setupMap()
 
 //        add the map setup implementation
 //        zoom to the user location after taking his permission
-//        TODO: add style to the map
+//        add style to the map
 //        TODO: put a marker to location that the user selected
 
 
@@ -91,6 +97,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = true
+        setStyle(map)
         getLocation()
     }
 
@@ -243,6 +250,24 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         lat = latLong.latitude
         long = latLong.longitude
         title = getString(R.string.dropped_pin)
+    }
+
+    /**
+     * Set Custom Style to the map (Blue Water Style -by Xavier)
+     */
+    private fun setStyle(map: GoogleMap) {
+        try {
+            val success = map.setMapStyle(context?.let {
+                MapStyleOptions.loadRawResourceStyle(
+                    it, R.raw.map_style
+                )
+            })
+            if (!success) {
+                Toast.makeText(context, "Error Styling map.", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Resources.NotFoundException) {
+            Toast.makeText(context, "Style Not Found Exception $e", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
