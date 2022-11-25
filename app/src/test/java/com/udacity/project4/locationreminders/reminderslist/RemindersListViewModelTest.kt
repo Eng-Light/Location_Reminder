@@ -4,8 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.udacity.project4.locationreminders.data.FakeDataSource
+import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+import com.udacity.project4.locationreminders.getOrAwaitValue
 import com.udacity.project4.locationreminders.rule.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.resumeDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -19,7 +23,7 @@ import org.koin.core.context.stopKoin
 @ExperimentalCoroutinesApi
 class RemindersListViewModelTest {
 
-    //TODO: provide testing to the RemindersListViewModel and its live data objects
+    //Provide testing to the RemindersListViewModel and its live data objects
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
@@ -57,6 +61,33 @@ class RemindersListViewModelTest {
         reminderViewModel.loadReminders()
         MatcherAssert.assertThat(
             reminderViewModel.showSnackBar.value, CoreMatchers.`is`("Reminders not found")
+        )
+    }
+
+    /**
+     * assert show loading when loading data.
+     */
+    @Test
+    fun showLoading() = runBlockingTest {
+        //Create Fake reminder data.
+        val testReminder = ReminderDTO(
+            title = "reminder title",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+        fakeRepo.saveReminder(testReminder)
+        mainCoroutineRule.pauseDispatcher()
+        reminderViewModel.loadReminders()
+        MatcherAssert.assertThat(
+            reminderViewModel.showLoading.getOrAwaitValue(),
+            CoreMatchers.`is`(true)
+        )
+        mainCoroutineRule.resumeDispatcher()
+        MatcherAssert.assertThat(
+            reminderViewModel.showLoading.getOrAwaitValue(),
+            CoreMatchers.`is`(false)
         )
     }
 }
