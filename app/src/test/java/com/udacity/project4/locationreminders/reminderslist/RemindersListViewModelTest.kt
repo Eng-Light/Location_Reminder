@@ -6,8 +6,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.udacity.project4.locationreminders.data.FakeDataSource
 import com.udacity.project4.locationreminders.rule.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
 
@@ -44,4 +48,15 @@ class RemindersListViewModelTest {
         )
     }
 
+    /**
+     *assert showing errors on loading reminders.
+     */
+    @Test
+    fun shouldReturnError() = runBlockingTest {
+        fakeRepo.setShouldReturnError(true)
+        reminderViewModel.loadReminders()
+        MatcherAssert.assertThat(
+            reminderViewModel.showSnackBar.value, CoreMatchers.`is`("Reminders not found")
+        )
+    }
 }
