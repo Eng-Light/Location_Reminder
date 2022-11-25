@@ -38,7 +38,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         setDisplayHomeAsUpEnabled(true)
         setupMap()
 
-//        TODO: add the map setup implementation
+//        add the map setup implementation
 //        TODO: zoom to the user location after taking his permission
 //        TODO: add style to the map
 //        TODO: put a marker to location that the user selected
@@ -83,17 +83,21 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) = when (menuItem.itemId) {
-        // TODO: Change the map type based on the user's selection.
+        //Change the map type based on the user's selection.
         R.id.normal_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_NORMAL
             true
         }
         R.id.hybrid_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_HYBRID
             true
         }
         R.id.satellite_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_SATELLITE
             true
         }
         R.id.terrain_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_TERRAIN
             true
         }
         else -> false
