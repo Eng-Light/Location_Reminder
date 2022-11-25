@@ -10,6 +10,9 @@ import com.udacity.project4.locationreminders.rule.MainCoroutineRule
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.resumeDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.Before
@@ -44,8 +47,7 @@ class SaveReminderViewModelTest {
         stopKoin()
         fakeRepo = FakeDataSource()
         saveReminderViewModel = SaveReminderViewModel(
-            ApplicationProvider.getApplicationContext(),
-            fakeRepo
+            ApplicationProvider.getApplicationContext(), fakeRepo
         )
         //reset fakeDataBase
         runBlocking { fakeRepo.deleteAllReminders() }
@@ -65,9 +67,32 @@ class SaveReminderViewModelTest {
     fun shouldReturnError() {
         saveReminderViewModel.validateAndSaveReminder(getInvalidReminder())
         MatcherAssert.assertThat(
-            saveReminderViewModel.showSnackBarInt.getOrAwaitValue(),
-            CoreMatchers.notNullValue()
+            saveReminderViewModel.showSnackBarInt.getOrAwaitValue(), CoreMatchers.notNullValue()
         )
     }
 
+    private fun getValidReminder(): ReminderDataItem {
+        return ReminderDataItem(
+            title = "reminder title",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+    }
+
+    @Test
+    fun showLoading() = runBlockingTest {
+        mainCoroutineRule.pauseDispatcher()
+        if (saveReminderViewModel.validateAndSaveReminder(getValidReminder())) {
+            saveReminderViewModel.saveReminder(getValidReminder())
+        }
+        MatcherAssert.assertThat(
+            saveReminderViewModel.showLoading.getOrAwaitValue(), CoreMatchers.`is`(true)
+        )
+        mainCoroutineRule.resumeDispatcher()
+        MatcherAssert.assertThat(
+            saveReminderViewModel.showLoading.getOrAwaitValue(), CoreMatchers.`is`(false)
+        )
+    }
 }
