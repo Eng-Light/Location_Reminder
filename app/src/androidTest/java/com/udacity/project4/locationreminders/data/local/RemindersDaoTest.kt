@@ -63,5 +63,4 @@ class RemindersDaoTest {
         MatcherAssert.assertThat(loaded.longitude, CoreMatchers.`is`(testReminder.longitude))
         MatcherAssert.assertThat(loaded.location, CoreMatchers.`is`(testReminder.location))
     }
-
 }
