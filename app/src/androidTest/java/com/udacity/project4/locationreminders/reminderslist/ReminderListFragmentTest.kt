@@ -9,17 +9,20 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.ReminderDataSource
+import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.local.LocalDB
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -39,8 +42,8 @@ import org.mockito.Mockito
 @MediumTest
 class ReminderListFragmentTest {
 
-//    TODO: test the navigation of the fragments.
-//    TODO: test the displayed data on the UI.
+//    test the navigation of the fragments.
+//    test the displayed data on the UI.
 //    TODO: add testing for the error messages.
 
     // Use a fake repository to be injected into the viewModel
@@ -112,5 +115,38 @@ class ReminderListFragmentTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
         Mockito.verify(navController).navigate(ReminderListFragmentDirections.toSaveReminder())
+    }
+
+    private fun getReminder(): ReminderDTO {
+        return ReminderDTO(
+            title = "reminder title",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+    }
+
+    @Test
+    fun displayRemindersListTest() = runBlockingTest {
+        val testReminder = getReminder()
+        runBlocking {
+            repository.saveReminder(testReminder)
+        }
+        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+        dataBindingIdlingResource.monitorFragment(scenario)
+        Espresso.onView(ViewMatchers.withText(testReminder.title))
+            .check(
+                ViewAssertions.matches(
+                    ViewMatchers.isDisplayed()
+                )
+            )
+        Espresso.onView(
+            ViewMatchers.withText(testReminder.description)
+        ).check(
+            ViewAssertions.matches(
+                ViewMatchers.isDisplayed()
+            )
+        )
     }
 }
