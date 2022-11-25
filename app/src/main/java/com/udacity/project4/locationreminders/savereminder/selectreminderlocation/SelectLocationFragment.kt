@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
+import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentSelectLocationBinding
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
@@ -70,8 +71,15 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
 //        put a marker to location that the user selected
 
 
-//        TODO: call this function after the user confirms on the selected location
-        onLocationSelected()
+//        call this function after the user confirms on the selected location
+        binding.saveLocation.setOnClickListener {
+            if (isLocationSelected) {
+                onLocationSelected()
+            } else {
+                Toast.makeText(requireContext(), "Please Select Location First", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
 
         return binding.root
     }
@@ -103,9 +111,14 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
     }
 
     private fun onLocationSelected() {
-        //        TODO: When the user confirms on the selected location,
+        //        When the user confirms on the selected location,
         //         send back the selected location details to the view model
         //         and navigate back to the previous fragment to save the reminder and add the geofence
+        _viewModel.latitude.value = lat
+        _viewModel.longitude.value = long
+        _viewModel.selectedPOI.value = poi
+        _viewModel.reminderSelectedLocationStr.value = title
+        _viewModel.navigationCommand.postValue(NavigationCommand.Back)
     }
 
     /**
@@ -243,8 +256,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
                             focusOnCurrentLocation(this.result)
                         } else {
                             showRationaleDialog(
-                                "Location is Disabled",
-                                "Please Enable Your Location Settings"
+                                "Location is Disabled", "Please Enable Your Location Settings"
                             )
                         }
                     }
@@ -269,9 +281,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
                     focusOnCurrentLocation(location)
                 } else {
                     Toast.makeText(
-                        requireContext(),
-                        "Please Enable your Location Settings",
-                        Toast.LENGTH_LONG
+                        requireContext(), "Please Enable your Location Settings", Toast.LENGTH_LONG
                     ).show()
                 }
             }
