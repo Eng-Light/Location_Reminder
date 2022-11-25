@@ -44,7 +44,7 @@ class ReminderListFragmentTest {
 
 //    test the navigation of the fragments.
 //    test the displayed data on the UI.
-//    TODO: add testing for the error messages.
+//    add testing for the error messages.
 
     // Use a fake repository to be injected into the viewModel
     private lateinit var repository: ReminderDataSource
@@ -148,5 +148,15 @@ class ReminderListFragmentTest {
                 ViewMatchers.isDisplayed()
             )
         )
+    }
+
+    @Test
+    fun testErrorMessageIfNoData() {
+        val fragmentScenario =
+            launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+        dataBindingIdlingResource.monitorFragment(fragmentScenario)
+
+        Espresso.onView(ViewMatchers.withText(R.string.no_data))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
