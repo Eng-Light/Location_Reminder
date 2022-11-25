@@ -99,6 +99,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         setStyle(map)
         getLocation()
         setOnPoiClick(map)
+        setOnLongClick(map)
     }
 
     private fun onLocationSelected() {
@@ -108,7 +109,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
     }
 
     /**
-     * manage what happen when user clicks on a poi in the map.
+     * Manage what happen when user clicks on a poi in the map.
      */
     private fun setOnPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
@@ -126,6 +127,24 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
             lat = poi.latLng.latitude
             long = poi.latLng.longitude
             title = poi.name
+            isLocationSelected = true
+        }
+    }
+
+    /**
+     * Manage what happen when user longClicks on any point of the map.
+     */
+    private fun setOnLongClick(map: GoogleMap) {
+        map.setOnMapLongClickListener { latLong ->
+            val zoomLevel = 15f
+            map.clear()
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, zoomLevel))
+            map.addMarker(
+                MarkerOptions().position(latLong).title(getString(R.string.dropped_pin))
+            )?.showInfoWindow()
+            lat = latLong.latitude
+            long = latLong.longitude
+            title = getString(R.string.dropped_pin)
             isLocationSelected = true
         }
     }
