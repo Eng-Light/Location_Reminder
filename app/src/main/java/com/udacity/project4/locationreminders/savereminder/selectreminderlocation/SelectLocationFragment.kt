@@ -23,10 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.udacity.project4.R
 import com.udacity.project4.base.BaseFragment
@@ -44,9 +41,11 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
     // FusedLocationProviderClient - Main class for receiving location updates.
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
+    private var poi: PointOfInterest? = null
     private var lat: Double = 0.0
     private var long: Double = 0.0
     private var title = ""
+    private var isLocationSelected = false
 
     private lateinit var map: GoogleMap
     private var requestPermissionLauncher = registerCallBack()
@@ -68,7 +67,7 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
 //        add the map setup implementation
 //        zoom to the user location after taking his permission
 //        add style to the map
-//        TODO: put a marker to location that the user selected
+//        put a marker to location that the user selected
 
 
 //        TODO: call this function after the user confirms on the selected location
@@ -99,12 +98,36 @@ class SelectLocationFragment : BaseFragment(), MenuProvider, OnMapReadyCallback 
         map.uiSettings.isMyLocationButtonEnabled = true
         setStyle(map)
         getLocation()
+        setOnPoiClick(map)
     }
 
     private fun onLocationSelected() {
         //        TODO: When the user confirms on the selected location,
         //         send back the selected location details to the view model
         //         and navigate back to the previous fragment to save the reminder and add the geofence
+    }
+
+    /**
+     * manage what happen when user clicks on a poi in the map.
+     */
+    private fun setOnPoiClick(map: GoogleMap) {
+        map.setOnPoiClickListener { poi ->
+            map.clear()
+            map.addMarker(
+                MarkerOptions().position(poi.latLng).title(poi.name)
+            )?.showInfoWindow()
+            map.addCircle(
+                CircleOptions().center(poi.latLng).radius(150.0)
+                    .strokeColor(Color.argb(255, 255, 0, 0)).fillColor(Color.argb(64, 255, 0, 0))
+                    .strokeWidth(4F)
+
+            )
+            this.poi = poi
+            lat = poi.latLng.latitude
+            long = poi.latLng.longitude
+            title = poi.name
+            isLocationSelected = true
+        }
     }
 
     /**
