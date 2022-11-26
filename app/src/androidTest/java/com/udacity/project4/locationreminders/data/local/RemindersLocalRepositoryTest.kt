@@ -73,4 +73,22 @@ class RemindersLocalRepositoryTest {
         MatcherAssert.assertThat(result.data.location, CoreMatchers.`is`(newReminder.location))
     }
 
+    @Test
+    fun reminderNotFoundWithId_Test() = runBlocking {
+        val newReminder = ReminderDTO(
+            title = "reminder title",
+            description = "description",
+            location = "Cairo",
+            latitude = 30.033333,
+            longitude = 31.233334
+        )
+        repository.saveReminder(newReminder)
+        repository.deleteAllReminders()
+
+        val result = repository.getReminder(newReminder.id)
+        MatcherAssert.assertThat(result is Result.Error, CoreMatchers.`is`(true))
+        result as Result.Error
+        MatcherAssert.assertThat(result.message, CoreMatchers.`is`("Reminder not found!"))
+    }
+
 }
