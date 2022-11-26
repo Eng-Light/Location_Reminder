@@ -101,6 +101,7 @@ class SaveReminderFragment : BaseFragment() {
             when {
                 result.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                     Log.d(TAG, "Fine location access granted.")
+                    isBackgroundLocationPermissionsGranted()
                 }
                 else -> {
                     Log.e(TAG, "Location permission was not granted.")
@@ -120,6 +121,7 @@ class SaveReminderFragment : BaseFragment() {
             when {
                 result.getOrDefault(Manifest.permission.ACCESS_BACKGROUND_LOCATION, false) -> {
                     Log.d(TAG, "Background permission is granted.")
+                    checkLocationAndAddGeofence()
                 }
                 else -> {
                     Log.e(TAG, "Location Background permission was not granted.")
@@ -191,7 +193,8 @@ class SaveReminderFragment : BaseFragment() {
         } else {
             Log.d(TAG, "Fine permissions is granted.")
             //Check Background Permission.
-            result = isBackgroundLocationPermissionsGranted()
+            if (isBackgroundLocationPermissionsGranted())
+                result = true
         }
         return result
     }
@@ -229,6 +232,7 @@ class SaveReminderFragment : BaseFragment() {
         geofencingClient.addGeofences(request, pendingIntent).run {
             addOnSuccessListener {
                 //Save Data to DataBase
+                _viewModel.showSnackBar.value = requireContext().getString(R.string.geofence_added)
                 _viewModel.saveReminder(reminderData)
             }
             addOnFailureListener {
