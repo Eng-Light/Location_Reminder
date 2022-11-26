@@ -1,12 +1,15 @@
 package com.udacity.project4
 
+import android.app.Activity
 import android.app.Application
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -20,6 +23,7 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.CoreMatchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -102,6 +106,15 @@ class RemindersActivityTest :
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
     }
 
+    // get activity context
+    private fun getActivity(activityScenario: ActivityScenario<RemindersActivity>): Activity {
+        lateinit var activity: Activity
+        activityScenario.onActivity {
+            activity = it
+        }
+        return activity
+    }
+
     //Add End to End testing to the app
     @Test
     fun createReminderAndSaveIt() {
@@ -119,9 +132,9 @@ class RemindersActivityTest :
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.selectLocation)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.map)).perform(ViewActions.longClick())
-        Thread.sleep(3000)
+        Thread.sleep(2000)
         Espresso.onView(ViewMatchers.withId(R.id.save_location)).perform(ViewActions.click())
-        Thread.sleep(3000)
+        Thread.sleep(2000)
         Espresso.onView(ViewMatchers.withId(R.id.saveReminder)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText("Test Title"))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -129,6 +142,23 @@ class RemindersActivityTest :
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withText(R.string.dropped_pin))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText(R.string.reminder_saved))
+            .inRoot(RootMatchers.withDecorView(CoreMatchers.`is`(getActivity(activityScenario).window.decorView)))
+        activityScenario.close()
+    }
+
+    @Test
+    fun validationErrorTest(){
+        val activityScenario = launchActivity<RemindersActivity>()
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
+        Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.saveReminder)).perform(ViewActions.click())
+
+        //val message = appContext.getString(R.string.err_enter_title)
+        Espresso.onView(ViewMatchers.withText(R.string.err_enter_title))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+
         activityScenario.close()
     }
 }
