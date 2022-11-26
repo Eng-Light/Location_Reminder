@@ -38,7 +38,8 @@ class SaveReminderFragment : BaseFragment() {
         private const val TAG = "SaveReminderFragment"
         private const val TURN_DEVICE_LOCATION_ON_REQUEST_CODE = 35
         const val GEOFENCE_RADIUS = 500f
-        const val ACTION_GEOFENCE_EVENT = "ACTION_GEOFENCE"
+        const val ACTION_GEOFENCE_EVENT =
+            "ACTION_GEOFENCE_EVENT"
     }
 
     private var requestFinePermissionLauncher = registerFineCallBack()
