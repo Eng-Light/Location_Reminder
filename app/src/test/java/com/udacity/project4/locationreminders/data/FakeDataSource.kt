@@ -42,7 +42,7 @@ class FakeDataSource(var reminders: MutableList<ReminderDTO> = mutableListOf()) 
             if (reminder != null) {
                 Result.Success(reminder)
             } else {
-                Result.Error("Reminder not found", 404)
+                Result.Error("Unable to Retrieve Reminder", 404)
             }
         }
     }
