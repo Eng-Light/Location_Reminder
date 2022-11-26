@@ -199,14 +199,18 @@ class SaveReminderFragment : BaseFragment() {
     private fun startingGeofence(
         latLng: LatLng, geofenceId: String
     ) {
-        val builder = Geofence.Builder().setRequestId(geofenceId).setCircularRegion(
+        val builder = Geofence.Builder()
+            .setRequestId(geofenceId)
+            .setCircularRegion(
                 latLng.latitude, latLng.longitude, GEOFENCE_RADIUS
             ).setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER).build()
 
         val request =
-            GeofencingRequest.Builder().setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-                .addGeofence(builder).build()
+            GeofencingRequest.Builder()
+                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .addGeofence(builder)
+                .build()
 
         val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
@@ -231,8 +235,7 @@ class SaveReminderFragment : BaseFragment() {
     /**
      * Check current location sittings status and Add Geofence.
      */
-    private fun checkLocationAndAddGeofence() {
-        val resolve = true
+    private fun checkLocationAndAddGeofence(resolve: Boolean = true) {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER
         }
@@ -272,10 +275,12 @@ class SaveReminderFragment : BaseFragment() {
                 val latitude = _viewModel.latitude.value
                 val longitude = _viewModel.longitude.value
                 val geofenceId = UUID.randomUUID().toString()
-                if (latitude != null && longitude != null && !TextUtils.isEmpty(title)) startingGeofence(
-                    LatLng(latitude, longitude),
-                    geofenceId
-                )
+                if (latitude != null && longitude != null && !TextUtils.isEmpty(title)) {
+                    startingGeofence(
+                        LatLng(latitude, longitude),
+                        geofenceId
+                    )
+                }
             }
         }
     }
@@ -286,6 +291,16 @@ class SaveReminderFragment : BaseFragment() {
     private fun beginSaveReminderFlow() {
         if (isLocationPermissionsGranted()) {
             checkLocationAndAddGeofence()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == TURN_DEVICE_LOCATION_ON_REQUEST_CODE) {
+            checkLocationAndAddGeofence(false)
         }
     }
 
