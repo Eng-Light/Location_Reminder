@@ -60,7 +60,7 @@ class RemindersListViewModelTest {
         fakeRepo.setShouldReturnError(true)
         reminderViewModel.loadReminders()
         MatcherAssert.assertThat(
-            reminderViewModel.showSnackBar.value, CoreMatchers.`is`("Reminders not found")
+            reminderViewModel.showSnackBar.value, CoreMatchers.`is`("Error Exception Retrieving Data")
         )
     }
 
