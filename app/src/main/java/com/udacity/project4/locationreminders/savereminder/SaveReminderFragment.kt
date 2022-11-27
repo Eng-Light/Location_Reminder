@@ -30,7 +30,6 @@ import com.udacity.project4.locationreminders.geofence.GeofenceBroadcastReceiver
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import org.koin.android.ext.android.inject
-import java.util.*
 
 class SaveReminderFragment : BaseFragment() {
 
@@ -284,7 +283,7 @@ class SaveReminderFragment : BaseFragment() {
                 val title = _viewModel.reminderTitle.value
                 val latitude = _viewModel.latitude.value
                 val longitude = _viewModel.longitude.value
-                val geofenceId = UUID.randomUUID().toString()
+                val geofenceId = reminderData.id
                 if (latitude != null && longitude != null && !TextUtils.isEmpty(title)) {
                     startingGeofence(
                         LatLng(latitude, longitude),
